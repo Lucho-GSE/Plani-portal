@@ -3,648 +3,636 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GSE — Portal Estratégico 2026</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>Grupo Santa Elena — Portal Estratégico 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
-:root{--cream:#F5F0E8;--dark:#1A1A14;--gold:#C8A84B;--gold-l:#F5EDD4;--border:#E2DAC8;--muted:#6B6B5A;--green:#166534;--green-l:#DCFCE7;--red:#991B1B;--red-l:#FEE2E2;--amber:#92400E;--amber-l:#FEF3C7;--blue:#1E3A8A;--blue-l:#DBEAFE;--gray-l:#F3F4F6;--shadow:0 1px 3px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.04)}
+:root{--gd:#1B5E20;--gm:#2E7D32;--ga:#43A047;--gl:#E8F5E9;--gp:#F1F8F2;--red:#C62828;--white:#FFFFFF;--gray:#F8F9FA;--brd:#E0EDE0;--txt:#1A1A1A;--txm:#4A4A4A;--txl:#757575;--shd:0 2px 8px rgba(0,0,0,.07);--shl:0 8px 32px rgba(0,0,0,.1)}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);display:flex;min-height:100vh}
-.sidebar{width:260px;min-height:100vh;background:var(--dark);color:var(--cream);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto;flex-shrink:0}
-.brand{padding:24px 20px 16px;border-bottom:1px solid rgba(255,255,255,.08)}
-.brand-logo{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:var(--gold)}
-.brand-sub{font-size:10px;color:rgba(255,255,255,.4);letter-spacing:.1em;text-transform:uppercase;margin-top:3px}
-.brand-tag{font-size:10px;color:var(--gold);opacity:.7;margin-top:6px;font-family:'DM Mono',monospace}
-.nav-sec{padding:14px 16px 6px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.3)}
-.nav-item{display:flex;align-items:center;gap:10px;padding:9px 20px;cursor:pointer;color:rgba(255,255,255,.6);font-size:13px;transition:all .15s;border-left:2px solid transparent}
-.nav-item:hover{color:#fff;background:rgba(255,255,255,.05)}
-.nav-item.active{color:var(--gold);border-left-color:var(--gold);background:rgba(200,168,75,.08);font-weight:500}
-.sidebar-footer{margin-top:auto;padding:14px 20px;border-top:1px solid rgba(255,255,255,.08);font-size:10px;color:rgba(255,255,255,.3)}
-.main{flex:1;overflow-x:hidden}
-.topbar{background:#fff;border-bottom:1px solid var(--border);padding:12px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
-.topbar-title{font-size:13px;font-weight:500}
-.topbar-right{display:flex;align-items:center;gap:10px}
-.mes-badge{font-family:'DM Mono',monospace;font-size:11px;background:var(--cream);padding:4px 10px;border-radius:6px;color:var(--muted)}
-.update-btn{padding:5px 14px;border-radius:7px;border:none;background:var(--gold);color:var(--dark);font-size:11px;font-weight:500;cursor:pointer;transition:opacity .15s}
-.update-btn:hover{opacity:.85}
-.page{display:none;padding:28px 32px;max-width:1200px}
+body{font-family:'Montserrat',sans-serif;background:var(--white);color:var(--txt);display:flex;flex-direction:column;min-height:100vh}
+.tb-top{background:var(--gm);color:#fff;padding:5px 32px;display:flex;align-items:center;justify-content:space-between;font-size:11px}
+.tb-main{background:#fff;border-bottom:1px solid var(--brd);padding:10px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:var(--shd)}
+.logo{display:flex;align-items:center;gap:12px}
+.logo-ico{width:46px;height:46px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Lora',serif;font-size:9px;font-weight:700;text-align:center;line-height:1.2;padding:3px}
+.logo-name{font-family:'Lora',serif;font-size:15px;font-weight:600;color:var(--gm)}
+.logo-sub{font-size:9px;color:var(--txl);letter-spacing:.08em;text-transform:uppercase}
+.mes-sel{padding:6px 12px;border:1px solid var(--brd);border-radius:20px;font-size:11px;font-family:'Montserrat',sans-serif;color:var(--gm);background:var(--gl);cursor:pointer}
+.upd-btn{background:var(--gm);color:#fff;border:none;padding:8px 16px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Montserrat',sans-serif;margin-left:8px}
+.upd-btn:hover{background:var(--gd)}
+.layout{display:flex;flex:1}
+.sidebar{width:230px;background:var(--gp);border-right:1px solid var(--brd);display:flex;flex-direction:column;position:sticky;top:64px;height:calc(100vh - 64px);overflow-y:auto;flex-shrink:0}
+.nav-sec{padding:14px 18px 5px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--txl);font-weight:600}
+.nav-item{display:flex;align-items:center;gap:9px;padding:9px 18px;cursor:pointer;color:var(--txm);font-size:12px;font-weight:500;transition:all .15s;border-left:3px solid transparent}
+.nav-item:hover{color:var(--gm);background:var(--gl);border-left-color:var(--ga)}
+.nav-item.active{color:var(--gd);border-left-color:var(--gm);background:var(--gl);font-weight:600}
+.sb-foot{margin-top:auto;padding:14px 18px;border-top:1px solid var(--brd);font-size:10px;color:var(--txl)}
+.main{flex:1}
+.page{display:none;padding:28px 32px;max-width:1100px}
 .page.active{display:block}
-.ph{margin-bottom:24px;padding-bottom:18px;border-bottom:1px solid var(--border)}
-.ph-eye{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:5px;font-weight:600}
-.ph-title{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;letter-spacing:-.02em}
-.ph-desc{font-size:13px;color:var(--muted);margin-top:5px}
-.mission{background:var(--dark);color:#fff;border-radius:12px;padding:24px 28px;margin-bottom:22px;position:relative;overflow:hidden}
-.mission::before{content:'';position:absolute;top:-30px;right:-30px;width:160px;height:160px;border-radius:50%;border:32px solid rgba(200,168,75,.1)}
-.mission-prop{font-size:11px;color:var(--gold);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
-.mission-text{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;line-height:1.3}
-.mission-sub{font-size:12px;color:rgba(255,255,255,.6);margin-top:6px;line-height:1.5}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
-.grid4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px}
-.grid5{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
-.card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px 20px;box-shadow:var(--shadow)}
-.stat{background:#fff;border:1px solid var(--border);border-radius:10px;padding:14px 16px}
-.stat-l{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px}
-.stat-v{font-family:'Playfair Display',serif;font-size:24px;font-weight:700}
-.stat-s{font-size:10px;color:var(--muted);margin-top:3px}
-.sl{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:20px 0 8px;font-weight:600}
-.badge{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:600}
-.bg-g{background:var(--green-l);color:var(--green)}
-.bg-r{background:var(--red-l);color:var(--red)}
-.bg-y{background:var(--amber-l);color:var(--amber)}
-.bg-n{background:var(--gray-l);color:#6B7280}
-.bg-gold{background:var(--gold-l);color:#7A5C00}
-.bg-blue{background:var(--blue-l);color:var(--blue)}
+.ptag{display:inline-flex;align-items:center;gap:5px;background:var(--gl);color:var(--gm);padding:3px 12px;border-radius:20px;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
+.ptag::before{content:'+';font-weight:700}
+.ptitle{font-family:'Lora',serif;font-size:26px;font-weight:600;color:var(--gd);letter-spacing:-.01em;line-height:1.2;margin-bottom:5px}
+.ptitle em{font-style:italic;color:var(--ga)}
+.pdesc{font-size:12px;color:var(--txl);margin-bottom:22px;line-height:1.6}
+.hero{background:linear-gradient(135deg,var(--gd) 0%,var(--ga) 100%);color:#fff;border-radius:14px;padding:24px 28px;margin-bottom:22px;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;right:-20px;top:-20px;width:160px;height:160px;border-radius:50%;border:32px solid rgba(255,255,255,.08)}
+.htag{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:5px}
+.htag::before{content:'+ '}
+.htitle{font-family:'Lora',serif;font-size:20px;font-weight:600;margin-bottom:5px}
+.hsub{font-size:12px;color:rgba(255,255,255,.72);line-height:1.6;max-width:580px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g5{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.card{background:#fff;border:1px solid var(--brd);border-radius:12px;padding:16px 18px;box-shadow:var(--shd)}
+.sc{background:#fff;border:1px solid var(--brd);border-radius:10px;padding:14px 16px;box-shadow:var(--shd);position:relative;overflow:hidden}
+.sc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.scg::before{background:var(--ga)}.scr::before{background:#E53935}.scy::before{background:#F9A825}.scd::before{background:var(--gd)}
+.sc-lbl{font-size:10px;color:var(--txl);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;font-weight:600}
+.sc-val{font-family:'Lora',serif;font-size:26px;font-weight:600;line-height:1}
+.sc-sub{font-size:10px;color:var(--txl);margin-top:3px}
+.sl{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--txl);margin:18px 0 10px;font-weight:600;display:flex;align-items:center;gap:5px}
+.sl::before{content:'+';color:var(--ga);font-weight:700}
+.badge{display:inline-flex;align-items:center;gap:3px;padding:3px 9px;border-radius:20px;font-size:10px;font-weight:600}
+.bg{background:#E8F5E9;color:#1B5E20}.br{background:#FFEBEE;color:#B71C1C}.by{background:#FFFDE7;color:#F57F17}.bn{background:#F5F5F5;color:#757575}.bgl{background:var(--gl);color:var(--gd)}
 table{width:100%;border-collapse:collapse;font-size:12px}
-th{text-align:left;padding:7px 10px;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);white-space:nowrap}
-td{padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.04);vertical-align:middle}
-tr:hover td{background:var(--gold-l)}
-.prog{height:5px;background:var(--border);border-radius:3px;overflow:hidden;margin-top:3px}
-.prog-f{height:100%;border-radius:3px}
-.pg{background:#16a34a}.py{background:#d97706}.pr{background:#dc2626}.pgold{background:var(--gold)}
-.ger-block{background:#fff;border:1px solid var(--border);border-radius:12px;margin-bottom:14px;overflow:hidden}
-.ger-head{padding:13px 18px;background:var(--dark);color:#fff;display:flex;align-items:center;gap:10px;cursor:pointer}
-.ger-name{font-family:'Playfair Display',serif;font-size:14px;font-weight:700}
-.ger-resp{font-size:10px;color:rgba(255,255,255,.5);margin-top:1px}
-.ger-body{padding:0 18px 14px}
-.avatar{width:36px;height:36px;border-radius:50%;background:rgba(200,168,75,.2);color:var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:13px;font-weight:700;flex-shrink:0}
-.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;align-items:center;justify-content:center}
-.modal-bg.open{display:flex}
-.modal{background:#fff;border-radius:16px;width:min(700px,95vw);max-height:90vh;overflow-y:auto;padding:28px}
-.modal-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;margin-bottom:4px}
-.modal-sub{font-size:12px;color:var(--muted);margin-bottom:20px}
-.input-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
-.input-group{display:flex;flex-direction:column;gap:4px}
-.input-group label{font-size:11px;font-weight:500;color:var(--muted)}
-.input-group input,.input-group select{padding:8px 10px;border:1px solid var(--border);border-radius:7px;font-size:12px;font-family:'DM Sans',sans-serif;background:#fff;color:var(--dark)}
-.input-group input:focus,.input-group select:focus{outline:none;border-color:var(--gold)}
-.input-full{grid-column:1/-1}
-.modal-table{width:100%;border-collapse:collapse;font-size:11px;margin-top:12px}
-.modal-table th{background:var(--dark);color:var(--gold);padding:8px 10px;text-align:left;font-size:10px;font-weight:600}
-.modal-table td{padding:7px 10px;border-bottom:1px solid var(--border);vertical-align:middle}
-.modal-table tr:hover td{background:var(--gold-l)}
-.real-input{width:90px;padding:4px 8px;border:1px solid var(--border);border-radius:5px;font-size:11px;text-align:center;font-family:'DM Mono',monospace}
-.real-input:focus{outline:none;border-color:var(--gold);background:var(--gold-l)}
-.btn-primary{padding:10px 24px;background:var(--dark);color:var(--gold);border:none;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;margin-top:16px;transition:opacity .15s}
-.btn-primary:hover{opacity:.85}
-.btn-sec{padding:10px 20px;background:transparent;color:var(--muted);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;margin-top:16px;margin-left:8px}
-.score-ring{width:60px;height:60px;border-radius:50%;border:4px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
-.pilar-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.pilar-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+th{text-align:left;padding:8px 11px;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--txl);border-bottom:2px solid var(--brd);white-space:nowrap;background:var(--gp)}
+td{padding:7px 11px;border-bottom:1px solid var(--brd);vertical-align:middle}
+tr:hover td{background:var(--gp)}
+.gb{background:#fff;border:1px solid var(--brd);border-radius:14px;margin-bottom:12px;overflow:hidden;box-shadow:var(--shd)}
+.gh{padding:13px 18px;background:var(--gd);color:#fff;display:flex;align-items:center;gap:11px;cursor:pointer}
+.gh:hover{background:var(--gm)}
+.gav{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-family:'Lora',serif;font-size:13px;font-weight:700}
+.gn{font-family:'Lora',serif;font-size:14px;font-weight:600}
+.gr{font-size:10px;color:rgba(255,255,255,.6)}
+.gbody{padding:0 18px 14px}
+.pc{background:#fff;border:1px solid var(--brd);border-radius:12px;padding:13px 15px;display:flex;align-items:center;gap:11px;box-shadow:var(--shd)}
+.pc.hi{border:2px solid var(--ga)}
+.av{width:42px;height:42px;border-radius:50%;background:var(--gl);border:2px solid var(--brd);display:flex;align-items:center;justify-content:center;font-family:'Lora',serif;font-size:15px;font-weight:700;color:var(--gd);flex-shrink:0}
+.av.dk{background:var(--gd);color:#fff}
+.vc{display:inline-flex;align-items:center;gap:7px;background:var(--gl);border:1px solid var(--brd);border-radius:8px;padding:8px 14px;font-size:12px;font-weight:500;color:var(--gd)}
+.vc::before{content:'✦';color:var(--ga);font-size:10px}
+.cg{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;text-align:center}
+.ci{padding:18px 10px;border:1px solid var(--brd);border-radius:12px;background:#fff;box-shadow:var(--shd)}
+.ci-ico{font-size:26px;margin-bottom:8px}
+.ci-nm{font-size:11px;font-weight:600;color:var(--gd)}
+.plan-box{background:#FFF8E1;border-left:4px solid #F9A825;padding:10px 14px;border-radius:0 8px 8px 0;font-size:11px;color:#5D4037;line-height:1.6;margin-top:8px}
+.plan-box strong{color:#E65100}
+/* MODAL */
+.mbg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;align-items:center;justify-content:center}
+.mbg.open{display:flex}
+.modal{background:#fff;border-radius:16px;width:min(720px,95vw);max-height:90vh;overflow-y:auto;padding:28px;box-shadow:var(--shl)}
+.mt{font-family:'Lora',serif;font-size:20px;font-weight:600;color:var(--gd);margin-bottom:4px}
+.ms{font-size:12px;color:var(--txl);margin-bottom:20px}
+.ig{display:flex;flex-direction:column;gap:3px;margin-bottom:10px}
+.ig label{font-size:11px;font-weight:600;color:var(--txm)}
+.ig input,.ig select{padding:8px 11px;border:1px solid var(--brd);border-radius:7px;font-size:12px;font-family:'Montserrat',sans-serif}
+.ri{width:95px;padding:5px 8px;border:1px solid var(--brd);border-radius:5px;font-size:11px;text-align:center;font-family:'Courier New',monospace;background:#F1F8F2}
+.ri:focus{outline:none;border-color:var(--ga)}
+.bp{background:var(--gm);color:#fff;border:none;padding:10px 22px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Montserrat',sans-serif;margin-top:14px}
+.bp:hover{background:var(--gd)}
+.bs{background:transparent;color:var(--txl);border:1px solid var(--brd);padding:10px 18px;border-radius:8px;font-size:12px;cursor:pointer;margin-top:14px;margin-left:8px;font-family:'Montserrat',sans-serif}
+/* RADAR CHART */
+.radar-wrap{position:relative;width:100%;max-width:320px;margin:0 auto}
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.page.active .card,.page.active .stat,.page.active .ger-block{animation:fadeUp .25s ease both}
+.page.active .card,.page.active .sc,.page.active .gb,.page.active .pc{animation:fadeUp .2s ease both}
 </style>
 </head>
 <body>
-
-<!-- SIDEBAR -->
-<nav class="sidebar">
-  <div class="brand">
-    <div class="brand-logo">GSE</div>
-    <div class="brand-sub">Grupo Santa Elena</div>
-    <div class="brand-tag">▸ Plan Estratégico 2026</div>
+<div class="tb-top">
+  <span>☎ (01) 611 0600 &nbsp;|&nbsp; 📍 Av. Manuel Olguin 325, Ofic. 703, Lima, Perú</span>
+  <span>Portal Interno · Sub Gerencia de Planificación</span>
+</div>
+<div class="tb-main">
+  <div class="logo">
+    <div class="logo-ico">Santa<br>Elena</div>
+    <div>
+      <div class="logo-name">Grupo Santa Elena</div>
+      <div class="logo-sub">Portal Estratégico 2026</div>
+    </div>
   </div>
+  <div style="display:flex;align-items:center;gap:8px">
+    <select class="mes-sel" id="mes-fil" onchange="cambiarMes(this.value)">
+      <option value="todos">Todos los meses</option>
+      <option value="Ene|2026">Enero 2026</option>
+      <option value="Feb|2026">Febrero 2026</option>
+      <option value="Mar|2026">Marzo 2026</option>
+      <option value="Abr|2026">Abril 2026</option>
+    </select>
+    <span id="mes-badge" style="font-size:11px;color:var(--txl)">· simulación Ene-Abr</span>
+    <button class="upd-btn" onclick="openModal()">+ Ingresar Actuals</button>
+  </div>
+</div>
+
+<div class="layout">
+<nav class="sidebar">
   <div class="nav-sec">Visión General</div>
-  <div class="nav-item active" onclick="nav('home',this)">⬡ Portal Estratégico</div>
+  <div class="nav-item active" onclick="nav('home',this)">⊕ Portal Estratégico</div>
   <div class="nav-item" onclick="nav('identidad',this)">◎ Identidad GSE</div>
   <div class="nav-item" onclick="nav('equipo',this)">◈ Plana Directiva</div>
   <div class="nav-sec">Estrategia</div>
   <div class="nav-item" onclick="nav('pilares',this)">▲ Pilares Estratégicos</div>
-  <div class="nav-item" onclick="nav('objetivos',this)">◇ Objetivos 2026</div>
   <div class="nav-sec">Seguimiento</div>
   <div class="nav-item" onclick="nav('gerencias',this)">◉ Tablero por Gerencia</div>
-  <div class="nav-item" onclick="nav('semaforo',this)">🚦 Semáforo Consolidado</div>
-  <div class="nav-item" onclick="nav('tendencias',this)">◈ Tendencias</div>
-  <div class="sidebar-footer">
-    <div id="sf-mes">Sin actuals cargados</div>
-    <div style="margin-top:3px;color:rgba(255,255,255,.4)">Sub Gerencia de Planificación</div>
+  <div class="nav-item" onclick="nav('semaforo',this)">◼ Semáforo + Radar</div>
+  <div class="nav-item" onclick="nav('tendencias',this)">◈ Tendencias + Plan</div>
+  <div class="sb-foot">
+    <div style="display:flex;align-items:center;gap:5px;margin-bottom:3px">
+      <div style="width:7px;height:7px;border-radius:50%;background:var(--ga)"></div>
+      <span id="sf-st">Simulación Ene-Abr 2026</span>
+    </div>
+    <div>Sub Gerencia de Planificación</div>
   </div>
 </nav>
 
-<!-- MAIN -->
 <div class="main">
-<div class="topbar">
-  <div class="topbar-title" id="topbar-ttl">Portal Estratégico</div>
-  <div class="topbar-right">
-    <span class="mes-badge" id="mes-label">Sin datos · Abr 2026</span>
-    <button class="update-btn" onclick="openModal()">+ Ingresar Actuals del Mes</button>
-  </div>
-</div>
 
-<!-- PAGE HOME -->
+<!-- HOME -->
 <div id="pg-home" class="page active">
-  <div class="ph">
-    <div class="ph-eye">Panel Ejecutivo</div>
-    <div class="ph-title">Portal Estratégico 2026</div>
-    <div class="ph-desc">Seguimiento integrado de objetivos, pilares y KPIs — Grupo Santa Elena</div>
+  <div class="ptag">Panel Ejecutivo</div>
+  <div class="ptitle">Portal Estratégico <em>2026</em></div>
+  <div class="pdesc">Seguimiento integrado de objetivos, pilares y KPIs — Grupo Santa Elena · <span id="home-mes-lbl" style="color:var(--ga);font-weight:600">Abril 2026</span></div>
+  <div class="hero">
+    <div class="htag">Propósito corporativo</div>
+    <div class="htitle">Nutrir con Integridad</div>
+    <div class="hsub">Ser la integración avícola más reconocida en el Perú por su calidad, eficiencia operacional e innovación en comercialización.</div>
   </div>
-  <div class="mission">
-    <div class="mission-prop">Propósito</div>
-    <div class="mission-text">Nutrir con Integridad</div>
-    <div class="mission-sub">Ser la integración avícola más reconocida en el Perú por su calidad, eficiencia operacional e innovación en comercialización.</div>
-  </div>
-  <div class="sl">Resumen Corporativo — Semáforo Activo</div>
-  <div class="grid4" style="margin-bottom:20px" id="home-stats"></div>
-  <div class="sl">Semáforo por Pilar</div>
-  <div id="home-pilares" style="margin-bottom:20px"></div>
-  <div class="sl">Estado por Gerencia</div>
-  <div id="home-gerencias-mini"></div>
+  <div class="sl">Resumen Corporativo</div>
+  <div class="g4" id="home-stats"></div>
+  <div class="sl">Semáforo por Pilar — <span id="home-pilar-mes" style="font-weight:600;color:var(--gm)">Abril 2026</span></div>
+  <div id="home-pilares" style="margin-bottom:22px"></div>
+  <div class="sl">Score por Gerencia</div>
+  <div class="g2" id="home-gers"></div>
 </div>
 
-<!-- PAGE IDENTIDAD -->
+<!-- IDENTIDAD -->
 <div id="pg-identidad" class="page">
-  <div class="ph"><div class="ph-eye">Empresa</div><div class="ph-title">Identidad GSE</div></div>
-  <div class="mission"><div class="mission-prop">Propósito</div><div class="mission-text">"Nutrir con Integridad"</div></div>
-  <div class="grid2" style="margin-bottom:20px">
-    <div class="card"><div class="sl" style="margin-top:0">Misión</div><p style="font-size:13px;line-height:1.7">Nutrir a los peruanos con productos de calidad, respetando el medioambiente y promoviendo el bienestar de sus colaboradores y sociedad.</p></div>
-    <div class="card"><div class="sl" style="margin-top:0">Visión</div><p style="font-size:13px;line-height:1.7">Ser la integración avícola más reconocida en el Perú por su calidad y eficiencia operacional, por la atención a nuestros clientes mayoristas y por la innovación en el canal de comercialización.</p></div>
+  <div class="ptag">Empresa</div>
+  <div class="ptitle">Identidad <em>GSE</em></div>
+  <div class="hero"><div class="htag">Propósito</div><div class="htitle">"Nutrir con Integridad"</div></div>
+  <div class="g2" style="margin-bottom:20px">
+    <div class="card"><div class="sl" style="margin-top:0">Misión</div><p style="font-size:13px;line-height:1.75;color:var(--txm)">Nutrir a los peruanos con productos de calidad, respetando el medioambiente y promoviendo el bienestar de sus colaboradores y sociedad.</p></div>
+    <div class="card"><div class="sl" style="margin-top:0">Visión</div><p style="font-size:13px;line-height:1.75;color:var(--txm)">Ser la integración avícola más reconocida en el Perú por su calidad y eficiencia operacional, por la atención a nuestros clientes mayoristas y por la innovación en el canal de comercialización.</p></div>
   </div>
-  <div class="sl">Valores Corporativos</div>
-  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px">
-    <span style="background:#fff;border:1px solid var(--border);border-radius:20px;padding:6px 14px;font-size:12px;font-weight:500">✦ Creatividad</span>
-    <span style="background:#fff;border:1px solid var(--border);border-radius:20px;padding:6px 14px;font-size:12px;font-weight:500">✦ Integridad</span>
-    <span style="background:#fff;border:1px solid var(--border);border-radius:20px;padding:6px 14px;font-size:12px;font-weight:500">✦ Respeto</span>
-    <span style="background:#fff;border:1px solid var(--border);border-radius:20px;padding:6px 14px;font-size:12px;font-weight:500">✦ Responsabilidad</span>
-    <span style="background:#fff;border:1px solid var(--border);border-radius:20px;padding:6px 14px;font-size:12px;font-weight:500">✦ Compromiso</span>
+  <div class="sl">Valores</div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px">
+    <div class="vc">Creatividad</div><div class="vc">Integridad</div><div class="vc">Respeto</div><div class="vc">Responsabilidad</div><div class="vc">Compromiso</div>
   </div>
-  <div class="card"><div class="sl" style="margin-top:0">Política de Calidad</div><p style="font-size:13px;line-height:1.75">En GSE, estamos comprometidos a producir alimentos de origen avícola de calidad, inocuos y nutritivos, utilizando recursos cuidadosamente seleccionados y eficientes métodos de trabajo a cargo de personal capacitado, enfocado a la mejora continua de nuestro Sistema de Gestión de Calidad y entera satisfacción de nuestros clientes, cumpliendo los requisitos de nuestras partes interesadas y los requisitos legales vigentes.</p></div>
+  <div class="sl">Nuestro Compromiso</div>
+  <div class="cg" style="margin-bottom:22px">
+    <div class="ci"><div class="ci-ico">🌱</div><div class="ci-nm">Sostenibilidad</div></div>
+    <div class="ci"><div class="ci-ico">👥</div><div class="ci-nm">Equipo Humano</div></div>
+    <div class="ci"><div class="ci-ico">🛡️</div><div class="ci-nm">Seguridad y Salud</div></div>
+    <div class="ci"><div class="ci-ico">⭐</div><div class="ci-nm">Calidad</div></div>
+    <div class="ci"><div class="ci-ico">🐔</div><div class="ci-nm">Bienestar Animal</div></div>
+    <div class="ci"><div class="ci-ico">🌍</div><div class="ci-nm">Gestión Ambiental</div></div>
+    <div class="ci"><div class="ci-ico">📋</div><div class="ci-nm">Código de Ética</div></div>
+    <div class="ci"><div class="ci-ico">📑</div><div class="ci-nm">Políticas Internas</div></div>
+  </div>
+  <div class="card"><div class="sl" style="margin-top:0">Política de Calidad</div><p style="font-size:13px;line-height:1.75;color:var(--txm)">En GSE, estamos comprometidos a producir alimentos de origen avícola de calidad, inocuos y nutritivos, utilizando recursos cuidadosamente seleccionados y eficientes métodos de trabajo a cargo de personal capacitado, enfocado a la mejora continua de nuestro Sistema de Gestión de Calidad y entera satisfacción de nuestros clientes.</p></div>
 </div>
 
-<!-- PAGE EQUIPO -->
+<!-- EQUIPO -->
 <div id="pg-equipo" class="page">
-  <div class="ph"><div class="ph-eye">Organización</div><div class="ph-title">Plana Directiva</div></div>
-  <div class="grid2" id="equipo-grid"></div>
+  <div class="ptag">Organización</div>
+  <div class="ptitle">Plana <em>Directiva</em></div>
+  <div class="pdesc">Gerencias y responsables que reportan a la Gerencia General</div>
+  <div class="g2" id="equipo-grid"></div>
 </div>
 
-<!-- PAGE PILARES -->
+<!-- PILARES -->
 <div id="pg-pilares" class="page">
-  <div class="ph"><div class="ph-eye">Estrategia</div><div class="ph-title">Pilares Estratégicos</div><div class="ph-desc">Los 5 pilares que articulan los objetivos y KPIs de Grupo Santa Elena 2026</div></div>
-  <div id="pilares-grid"></div>
+  <div class="ptag">Estrategia</div>
+  <div class="ptitle">Pilares <em>Estratégicos</em></div>
+  <div class="pdesc">Los 5 pilares que articulan los objetivos y KPIs de GSE 2026 · Semáforo del mes seleccionado</div>
+  <div id="pilares-content"></div>
 </div>
 
-<!-- PAGE OBJETIVOS -->
-<div id="pg-objetivos" class="page">
-  <div class="ph"><div class="ph-eye">Plan 2026</div><div class="ph-title">Objetivos Estratégicos N1</div><div class="ph-desc">Compartidos por todas las gerencias · Parcial ≤95% meta · Cumple 95–105% · Excede >105%</div></div>
-  <div id="objetivos-content"></div>
-</div>
-
-<!-- PAGE GERENCIAS -->
+<!-- GERENCIAS -->
 <div id="pg-gerencias" class="page">
-  <div class="ph"><div class="ph-eye">Tablero Cascada</div><div class="ph-title">KPIs por Gerencia</div><div class="ph-desc">Semáforos con actuals cargados · Haz clic en cada gerencia para expandir</div></div>
+  <div class="ptag">Tablero Cascada</div>
+  <div class="ptitle">KPIs por <em>Gerencia</em></div>
+  <div class="pdesc">Semáforos por mes · Talento consolidado como promedio de gerencias · Haz clic para expandir</div>
   <div id="ger-content"></div>
 </div>
 
-<!-- PAGE SEMAFORO -->
+<!-- SEMAFORO + RADAR -->
 <div id="pg-semaforo" class="page">
-  <div class="ph"><div class="ph-eye">Vista Consolidada</div><div class="ph-title">Semáforo Consolidado</div><div class="ph-desc">Todos los KPIs con estado actual</div></div>
-  <div class="grid4" id="sem-stats" style="margin-bottom:20px"></div>
-  <div style="overflow-x:auto" class="card"><table id="sem-table"><thead><tr><th>Pilar</th><th>KPI / Indicador</th><th>Gerencia</th><th>UM</th><th>Meta Cumple</th><th>Real</th><th>% Cumpl.</th><th>Estado</th><th>Tendencia</th></tr></thead><tbody id="sem-body"></tbody></table></div>
+  <div class="ptag">Vista Consolidada</div>
+  <div class="ptitle">Semáforo <em>+ Radar</em></div>
+  <div class="pdesc">Semáforo consolidado por pilar y por gerencia · Gráfico araña de cumplimiento de los 5 pilares</div>
+  <div class="g4" id="sem-stats" style="margin-bottom:20px"></div>
+  <div class="g2" style="margin-bottom:22px">
+    <div class="card">
+      <div class="sl" style="margin-top:0">Radar — Cumplimiento por Pilar</div>
+      <div class="radar-wrap"><canvas id="radar-pilares" height="280"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="sl" style="margin-top:0">% Cumplimiento por Gerencia</div>
+      <canvas id="bar-gers" height="280"></canvas>
+    </div>
+  </div>
+  <div class="sl">Semáforo Consolidado</div>
+  <div class="card" style="overflow-x:auto"><table><thead><tr><th>Pilar</th><th>KPI</th><th>Gerencia</th><th>UM</th><th>Meta Cumple</th><th>Real</th><th>% Cumpl.</th><th>Estado</th></tr></thead><tbody id="sem-body"></tbody></table></div>
 </div>
 
-<!-- PAGE TENDENCIAS -->
+<!-- TENDENCIAS + PLAN -->
 <div id="pg-tendencias" class="page">
-  <div class="ph"><div class="ph-eye">Historial</div><div class="ph-title">Tendencias Mensuales</div><div class="ph-desc">Evolución de actuals mes a mes por KPI</div></div>
+  <div class="ptag">Historial</div>
+  <div class="ptitle">Tendencias <em>+ Plan de Acción</em></div>
+  <div class="pdesc">Gráfico lineal Real vs Meta · Desviación · Plan de acción cuando hay brecha</div>
   <div id="tend-content"></div>
 </div>
 
 </div><!-- /main -->
+</div><!-- /layout -->
 
-<!-- MODAL INGRESO ACTUALS -->
-<div class="modal-bg" id="modal-bg" onclick="if(event.target===this)closeModal()">
+<!-- MODAL -->
+<div class="mbg" id="modal-bg" onclick="if(event.target===this)closeModal()">
 <div class="modal">
-  <div class="modal-title">Ingresar Actuals del Mes</div>
-  <div class="modal-sub">Completa los valores reales del mes cerrado. Solo los campos en azul son editables.</div>
-  <div class="input-row">
-    <div class="input-group">
-      <label>Año</label>
-      <input type="number" id="inp-ano" value="2026">
-    </div>
-    <div class="input-group">
-      <label>Mes</label>
-      <select id="inp-mes">
-        <option>Ene</option><option>Feb</option><option>Mar</option><option>Abr</option>
-        <option>May</option><option>Jun</option><option>Jul</option><option>Ago</option>
-        <option>Sep</option><option>Oct</option><option>Nov</option><option>Dic</option>
-      </select>
-    </div>
+  <div class="mt">Ingresar Actuals del Mes</div>
+  <div class="ms">Ingresa los valores reales. Solo campos numéricos editables.</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+    <div class="ig"><label>Año</label><input type="number" id="inp-ano" value="2026"></div>
+    <div class="ig"><label>Mes</label><select id="inp-mes"><option>Ene</option><option>Feb</option><option>Mar</option><option>Abr</option><option>May</option><option>Jun</option><option>Jul</option><option>Ago</option><option>Sep</option><option>Oct</option><option>Nov</option><option>Dic</option></select></div>
   </div>
   <div style="overflow-x:auto">
-  <table class="modal-table">
-    <thead><tr><th>KPI_ID</th><th>Gerencia</th><th>KPI / Indicador</th><th>UM</th><th>Meta Cumple</th><th>Real (ingresar)</th></tr></thead>
+  <table style="border-collapse:collapse;width:100%;font-size:11px">
+    <thead><tr style="background:var(--gd);color:#fff"><th style="padding:7px 10px">KPI_ID</th><th style="padding:7px 10px">Gerencia</th><th style="padding:7px 10px">KPI</th><th style="padding:7px 10px">UM</th><th style="padding:7px 10px">Meta</th><th style="padding:7px 10px">Real</th></tr></thead>
     <tbody id="modal-body"></tbody>
   </table>
   </div>
-  <div style="display:flex;gap:0">
-    <button class="btn-primary" onclick="guardarActuals()">Guardar y actualizar semáforos</button>
-    <button class="btn-sec" onclick="closeModal()">Cancelar</button>
-  </div>
+  <button class="bp" onclick="guardar()">Guardar y actualizar semáforos</button>
+  <button class="bs" onclick="closeModal()">Cancelar</button>
 </div>
 </div>
 
 <script>
 // ── DATA ─────────────────────────────────────────────────────────────────────
-const KPIS = [{"id": "GG-01", "pilar": "2. Rentabilidad", "kpi": "Venta total Gestionable + Merma", "um": "S/. MM", "parcial": 348.72, "cumple": 367.07, "excede": 385.43, "gerencia": "Gerencia General", "dir": "mayor", "peso": 0.25}, {"id": "GG-02", "pilar": "2. Rentabilidad", "kpi": "Costo x Kg - CT", "um": "S/ x Kg", "parcial": 3.979, "cumple": 3.79, "excede": 3.6, "gerencia": "Gerencia General", "dir": "menor", "peso": 0.2}, {"id": "GG-03", "pilar": "2. Rentabilidad", "kpi": "EBITDA", "um": "S/. MM", "parcial": 136.8, "cumple": 144.0, "excede": 151.2, "gerencia": "Gerencia General", "dir": "mayor", "peso": 0.2}, {"id": "GG-04", "pilar": "3. Nosotros", "kpi": "Productividad (UB/S. personas)", "um": "S/.", "parcial": 1.163, "cumple": 1.225, "excede": 1.286, "gerencia": "Gerencia General", "dir": "mayor", "peso": 0.2}, {"id": "GG-05", "pilar": "3. Nosotros", "kpi": "Talento GSE", "um": "%", "parcial": 42.75, "cumple": 45.0, "excede": 49.5, "gerencia": "Gerencia General", "dir": "mayor", "peso": 0.15}, {"id": "NEG-01", "pilar": "2. Rentabilidad", "kpi": "Venta total Gestionable + Merma", "um": "S/. MM", "parcial": 348.72, "cumple": 367.07, "excede": 385.43, "gerencia": "GC. De Negocios", "dir": "mayor", "peso": 0.25}, {"id": "NEG-02", "pilar": "2. Rentabilidad", "kpi": "Gastos de Venta (CT - CM)", "um": "S/ x Kg", "parcial": 1.4805, "cumple": 1.41, "excede": 1.3395, "gerencia": "GC. De Negocios", "dir": "menor", "peso": 0.2}, {"id": "NEG-03", "pilar": "1. Enfoque al Cliente", "kpi": "Nivel de Servicio Global", "um": "%", "parcial": 90.25, "cumple": 95.0, "excede": 99.75, "gerencia": "GC. De Negocios", "dir": "mayor", "peso": 0.2}, {"id": "NEG-04", "pilar": "4. Innovación", "kpi": "Funnel (Recordación de marcas)", "um": "%", "parcial": 17.1, "cumple": 18.0, "excede": 19.8, "gerencia": "GC. De Negocios", "dir": "mayor", "peso": 0.15}, {"id": "NEG-05", "pilar": "3. Nosotros", "kpi": "Talento GSE", "um": "%", "parcial": null, "cumple": null, "excede": null, "gerencia": "GC. De Negocios", "dir": "mayor", "peso": 0.2}, {"id": "FIN-01", "pilar": "2. Rentabilidad", "kpi": "Control de OPEX", "um": "S/. MM", "parcial": 85.68, "cumple": 81.6, "excede": 73.44, "gerencia": "GC. De Finanzas", "dir": "menor", "peso": 0.25}, {"id": "FIN-02", "pilar": "2. Rentabilidad", "kpi": "Cobertura Corriente / Ratio Liquidez", "um": "#", "parcial": 0.95, "cumple": 1.0, "excede": 1.1, "gerencia": "GC. De Finanzas", "dir": "mayor", "peso": 0.2}, {"id": "FIN-03", "pilar": "2. Rentabilidad", "kpi": "Eficiencia en Compras", "um": "%", "parcial": 4.75, "cumple": 5.0, "excede": 5.5, "gerencia": "GC. De Finanzas", "dir": "mayor", "peso": 0.2}, {"id": "FIN-04", "pilar": "2. Rentabilidad", "kpi": "Matriz de Riesgo", "um": "$. MM", "parcial": 28.5, "cumple": 30.0, "excede": 33.0, "gerencia": "GC. De Finanzas", "dir": "mayor", "peso": 0.2}, {"id": "FIN-05", "pilar": "3. Nosotros", "kpi": "Talento GSE", "um": "%", "parcial": null, "cumple": null, "excede": null, "gerencia": "GC. De Finanzas", "dir": "mayor", "peso": 0.15}, {"id": "TAL-01", "pilar": "3. Nosotros", "kpi": "Reducir a 0 accidentes (SST)", "um": "#", "parcial": 0, "cumple": 0, "excede": 0, "gerencia": "GC. Talento TEC y Seguridad", "dir": "menor", "peso": 0.25}, {"id": "TAL-02", "pilar": "3. Nosotros", "kpi": "Mejorar y mantener Talento", "um": "%", "parcial": 42.75, "cumple": 45.0, "excede": 49.5, "gerencia": "GC. Talento TEC y Seguridad", "dir": "mayor", "peso": 0.2}, {"id": "TAL-03", "pilar": "2. Rentabilidad", "kpi": "Recuperación Pérdidas por Inspectoría", "um": "S/. MM", "parcial": 9.5, "cumple": 10.0, "excede": 11.0, "gerencia": "GC. Talento TEC y Seguridad", "dir": "mayor", "peso": 0.2}, {"id": "TAL-04", "pilar": "4. Innovación", "kpi": "Productividad (UB/S. personas)", "um": "S/.", "parcial": 1.163, "cumple": 1.225, "excede": 1.286, "gerencia": "GC. Talento TEC y Seguridad", "dir": "mayor", "peso": 0.2}, {"id": "TAL-05", "pilar": "3. Nosotros", "kpi": "Mejorar el Clima GSE", "um": "%", "parcial": 80.75, "cumple": 85.0, "excede": 89.25, "gerencia": "GC. Talento TEC y Seguridad", "dir": "mayor", "peso": 0.15}, {"id": "OPE-01", "pilar": "2. Rentabilidad", "kpi": "Control de inventarios (ERI)", "um": "#", "parcial": null, "cumple": null, "excede": null, "gerencia": "Director de Operaciones", "dir": "mayor", "peso": 0.3}, {"id": "OPE-02", "pilar": "2. Rentabilidad", "kpi": "Costo x Kg - CT", "um": "S/ x Kg", "parcial": 3.979, "cumple": 3.79, "excede": 3.6, "gerencia": "Director de Operaciones", "dir": "menor", "peso": 0.25}, {"id": "OPE-03", "pilar": "1. Enfoque al Cliente", "kpi": "Cumplimiento de Auditoría Calidad", "um": "%", "parcial": 89.3, "cumple": 94.0, "excede": 98.7, "gerencia": "Director de Operaciones", "dir": "mayor", "peso": 0.2}, {"id": "OPE-04", "pilar": "3. Nosotros", "kpi": "Talento GSE", "um": "%", "parcial": null, "cumple": null, "excede": null, "gerencia": "Director de Operaciones", "dir": "mayor", "peso": 0.15}, {"id": "OPE-05", "pilar": "3. Nosotros", "kpi": "SST", "um": "#", "parcial": 0, "cumple": 0, "excede": 0, "gerencia": "Director de Operaciones", "dir": "menor", "peso": 0.1}, {"id": "PRO-01", "pilar": "2. Rentabilidad", "kpi": "Costo x kg Pollo", "um": "S/ x Kg", "parcial": 3.979, "cumple": 3.79, "excede": 3.6, "gerencia": "G. Central Producción", "dir": "menor", "peso": 0.3}, {"id": "PRO-02", "pilar": "2. Rentabilidad", "kpi": "Control de inventarios (ERI)", "um": "#", "parcial": null, "cumple": null, "excede": null, "gerencia": "G. Central Producción", "dir": "mayor", "peso": 0.25}, {"id": "PRO-03", "pilar": "1. Enfoque al Cliente", "kpi": "Pollo de primera + brasa", "um": "%", "parcial": 90.25, "cumple": 95.0, "excede": 99.75, "gerencia": "G. Central Producción", "dir": "mayor", "peso": 0.2}, {"id": "PRO-04", "pilar": "3. Nosotros", "kpi": "Talento", "um": "%", "parcial": null, "cumple": null, "excede": null, "gerencia": "G. Central Producción", "dir": "mayor", "peso": 0.15}, {"id": "PRO-05", "pilar": "3. Nosotros", "kpi": "SST", "um": "#", "parcial": 0, "cumple": 0, "excede": 0, "gerencia": "G. Central Producción", "dir": "menor", "peso": 0.1}, {"id": "IND-01", "pilar": "2. Rentabilidad", "kpi": "Costo de maquila PAB + PB", "um": "S/. x Tn", "parcial": null, "cumple": null, "excede": null, "gerencia": "G. Central Industrial", "dir": "menor", "peso": 0.3}, {"id": "IND-02", "pilar": "1. Enfoque al Cliente", "kpi": "Calidad - # de pollos A / AABB", "um": "%", "parcial": null, "cumple": null, "excede": null, "gerencia": "G. Central Industrial", "dir": "mayor", "peso": 0.25}, {"id": "IND-03", "pilar": "2. Rentabilidad", "kpi": "Control de inventarios (ERI)", "um": "#", "parcial": null, "cumple": null, "excede": null, "gerencia": "G. Central Industrial", "dir": "mayor", "peso": 0.2}, {"id": "IND-04", "pilar": "3. Nosotros", "kpi": "Talento GSE", "um": "%", "parcial": null, "cumple": null, "excede": null, "gerencia": "G. Central Industrial", "dir": "mayor", "peso": 0.15}, {"id": "IND-05", "pilar": "3. Nosotros", "kpi": "SST", "um": "#", "parcial": 0, "cumple": 0, "excede": 0, "gerencia": "G. Central Industrial", "dir": "menor", "peso": 0.1}, {"id": "CAL-01", "pilar": "2. Rentabilidad", "kpi": "Costo de no calidad / Ventas (%)", "um": "%", "parcial": null, "cumple": null, "excede": null, "gerencia": "G. Calidad", "dir": "menor", "peso": 0.3}, {"id": "CAL-02", "pilar": "1. Enfoque al Cliente", "kpi": "% cumplimiento de capacitaciones", "um": "%", "parcial": null, "cumple": null, "excede": null, "gerencia": "G. Calidad", "dir": "mayor", "peso": 0.25}, {"id": "CAL-03", "pilar": "5. Producción", "kpi": "% cumplimiento requisitos críticos", "um": "%", "parcial": null, "cumple": null, "excede": null, "gerencia": "G. Calidad", "dir": "mayor", "peso": 0.2}, {"id": "CAL-04", "pilar": "1. Enfoque al Cliente", "kpi": "Tiempo atención reclamos (días)", "um": "días", "parcial": null, "cumple": null, "excede": null, "gerencia": "G. Calidad", "dir": "menor", "peso": 0.15}, {"id": "CAL-05", "pilar": "3. Nosotros", "kpi": "Talento GSE", "um": "#", "parcial": null, "cumple": null, "excede": null, "gerencia": "G. Calidad", "dir": "mayor", "peso": 0.1}];
+const KPIS=[{"id": "GG-01", "pilar": "2. Rentabilidad", "kpi": "Venta total Gestionable + Merma", "um": "S/. MM", "parcial": 348.72, "cumple": 367.07, "excede": 385.43, "gerencia": "Gerencia General", "dir": "mayor", "peso": 0.25}, {"id": "GG-02", "pilar": "5. Producción", "kpi": "Costo x Kg - CT", "um": "S/ x Kg", "parcial": 3.979, "cumple": 3.79, "excede": 3.6, "gerencia": "Gerencia General", "dir": "menor", "peso": 0.2}, {"id": "GG-03", "pilar": "2. Rentabilidad", "kpi": "EBITDA", "um": "S/. MM", "parcial": 136.8, "cumple": 144.0, "excede": 151.2, "gerencia": "Gerencia General", "dir": "mayor", "peso": 0.2}, {"id": "GG-04", "pilar": "3. Nosotros", "kpi": "Productividad (UB/S. personas)", "um": "S/.", "parcial": 1.163, "cumple": 1.225, "excede": 1.286, "gerencia": "Gerencia General", "dir": "mayor", "peso": 0.2}, {"id": "GG-05", "pilar": "3. Nosotros", "kpi": "Talento GSE", "um": "%", "parcial": 42.75, "cumple": 45.0, "excede": 49.5, "gerencia": "Gerencia General", "dir": "mayor", "peso": 0.15}, {"id": "NEG-01", "pilar": "2. Rentabilidad", "kpi": "Venta total Gestionable + Merma", "um": "S/. MM", "parcial": 348.72, "cumple": 367.07, "excede": 385.43, "gerencia": "GC. De Negocios", "dir": "mayor", "peso": 0.25}, {"id": "NEG-02", "pilar": "2. Rentabilidad", "kpi": "Gastos de Venta (CT - CM)", "um": "S/ x Kg", "parcial": 1.4805, "cumple": 1.41, "excede": 1.3395, "gerencia": "GC. De Negocios", "dir": "menor", "peso": 0.2}, {"id": "NEG-03", "pilar": "1. Enfoque al Cliente", "kpi": "Nivel de Servicio Global", "um": "%", "parcial": 90.25, "cumple": 95.0, "excede": 99.75, "gerencia": "GC. De Negocios", "dir": "mayor", "peso": 0.2}, {"id": "NEG-04", "pilar": "4. Innovación", "kpi": "Funnel (Recordación de marcas)", "um": "%", "parcial": 17.1, "cumple": 18.0, "excede": 19.8, "gerencia": "GC. De Negocios", "dir": "mayor", "peso": 0.15}, {"id": "NEG-05", "pilar": "3. Nosotros", "kpi": "Talento GSE", "um": "%", "parcial": 42.75, "cumple": 45.0, "excede": 49.5, "gerencia": "GC. De Negocios", "dir": "mayor", "peso": 0.2}, {"id": "FIN-01", "pilar": "2. Rentabilidad", "kpi": "Control de OPEX", "um": "S/. MM", "parcial": 85.68, "cumple": 81.6, "excede": 73.44, "gerencia": "GC. De Finanzas", "dir": "menor", "peso": 0.25}, {"id": "FIN-02", "pilar": "2. Rentabilidad", "kpi": "Cobertura Corriente / Ratio Liquidez", "um": "#", "parcial": 0.95, "cumple": 1.0, "excede": 1.1, "gerencia": "GC. De Finanzas", "dir": "mayor", "peso": 0.2}, {"id": "FIN-03", "pilar": "2. Rentabilidad", "kpi": "Eficiencia en Compras", "um": "%", "parcial": 4.75, "cumple": 5.0, "excede": 5.5, "gerencia": "GC. De Finanzas", "dir": "mayor", "peso": 0.2}, {"id": "FIN-04", "pilar": "2. Rentabilidad", "kpi": "Matriz de Riesgo", "um": "$. MM", "parcial": 28.5, "cumple": 30.0, "excede": 33.0, "gerencia": "GC. De Finanzas", "dir": "mayor", "peso": 0.2}, {"id": "FIN-05", "pilar": "3. Nosotros", "kpi": "Talento GSE", "um": "%", "parcial": 42.75, "cumple": 45.0, "excede": 49.5, "gerencia": "GC. De Finanzas", "dir": "mayor", "peso": 0.15}, {"id": "TAL-01", "pilar": "3. Nosotros", "kpi": "Reducir a 0 accidentes (SST)", "um": "#", "parcial": 0, "cumple": 0, "excede": 0, "gerencia": "GC. Talento TEC y Seguridad", "dir": "menor", "peso": 0.25}, {"id": "TAL-02", "pilar": "3. Nosotros", "kpi": "Mejorar y mantener Talento", "um": "%", "parcial": 42.75, "cumple": 45.0, "excede": 49.5, "gerencia": "GC. Talento TEC y Seguridad", "dir": "mayor", "peso": 0.2}, {"id": "TAL-03", "pilar": "2. Rentabilidad", "kpi": "Recuperación Pérdidas por Inspectoría", "um": "S/. MM", "parcial": 9.5, "cumple": 10.0, "excede": 11.0, "gerencia": "GC. Talento TEC y Seguridad", "dir": "mayor", "peso": 0.2}, {"id": "TAL-04", "pilar": "4. Innovación", "kpi": "Productividad (UB/S. personas)", "um": "S/.", "parcial": 1.163, "cumple": 1.225, "excede": 1.286, "gerencia": "GC. Talento TEC y Seguridad", "dir": "mayor", "peso": 0.2}, {"id": "TAL-05", "pilar": "3. Nosotros", "kpi": "Mejorar el Clima GSE", "um": "%", "parcial": 80.75, "cumple": 85.0, "excede": 89.25, "gerencia": "GC. Talento TEC y Seguridad", "dir": "mayor", "peso": 0.15}, {"id": "OPE-01", "pilar": "2. Rentabilidad", "kpi": "Control de inventarios (ERI)", "um": "#", "parcial": null, "cumple": null, "excede": null, "gerencia": "Director de Operaciones", "dir": "mayor", "peso": 0.3}, {"id": "OPE-02", "pilar": "5. Producción", "kpi": "Costo x Kg - CT", "um": "S/ x Kg", "parcial": 3.979, "cumple": 3.79, "excede": 3.6, "gerencia": "Director de Operaciones", "dir": "menor", "peso": 0.25}, {"id": "OPE-03", "pilar": "1. Enfoque al Cliente", "kpi": "Cumplimiento de Auditoría Calidad", "um": "%", "parcial": 89.3, "cumple": 94.0, "excede": 98.7, "gerencia": "Director de Operaciones", "dir": "mayor", "peso": 0.2}, {"id": "OPE-04", "pilar": "3. Nosotros", "kpi": "Talento GSE", "um": "%", "parcial": 42.75, "cumple": 45.0, "excede": 49.5, "gerencia": "Director de Operaciones", "dir": "mayor", "peso": 0.15}, {"id": "OPE-05", "pilar": "3. Nosotros", "kpi": "SST", "um": "#", "parcial": 0, "cumple": 0, "excede": 0, "gerencia": "Director de Operaciones", "dir": "menor", "peso": 0.1}, {"id": "PRO-01", "pilar": "5. Producción", "kpi": "Costo x kg Pollo", "um": "S/ x Kg", "parcial": 3.979, "cumple": 3.79, "excede": 3.6, "gerencia": "G. Central Producción", "dir": "menor", "peso": 0.3}, {"id": "PRO-02", "pilar": "2. Rentabilidad", "kpi": "Control de inventarios (ERI)", "um": "#", "parcial": null, "cumple": null, "excede": null, "gerencia": "G. Central Producción", "dir": "mayor", "peso": 0.25}, {"id": "PRO-03", "pilar": "1. Enfoque al Cliente", "kpi": "Pollo de primera + brasa", "um": "%", "parcial": 90.25, "cumple": 95.0, "excede": 99.75, "gerencia": "G. Central Producción", "dir": "mayor", "peso": 0.2}, {"id": "PRO-04", "pilar": "3. Nosotros", "kpi": "Talento", "um": "%", "parcial": 42.75, "cumple": 45.0, "excede": 49.5, "gerencia": "G. Central Producción", "dir": "mayor", "peso": 0.15}, {"id": "PRO-05", "pilar": "3. Nosotros", "kpi": "SST", "um": "#", "parcial": 0, "cumple": 0, "excede": 0, "gerencia": "G. Central Producción", "dir": "menor", "peso": 0.1}, {"id": "IND-01", "pilar": "5. Producción", "kpi": "Costo de maquila PAB + PB", "um": "S/. x Tn", "parcial": null, "cumple": null, "excede": null, "gerencia": "G. Central Industrial", "dir": "menor", "peso": 0.3}, {"id": "IND-02", "pilar": "1. Enfoque al Cliente", "kpi": "Calidad - # de pollos A / AABB", "um": "%", "parcial": null, "cumple": null, "excede": null, "gerencia": "G. Central Industrial", "dir": "mayor", "peso": 0.25}, {"id": "IND-03", "pilar": "2. Rentabilidad", "kpi": "Control de inventarios (ERI)", "um": "#", "parcial": null, "cumple": null, "excede": null, "gerencia": "G. Central Industrial", "dir": "mayor", "peso": 0.2}, {"id": "IND-04", "pilar": "3. Nosotros", "kpi": "Talento GSE", "um": "%", "parcial": 42.75, "cumple": 45.0, "excede": 49.5, "gerencia": "G. Central Industrial", "dir": "mayor", "peso": 0.15}, {"id": "IND-05", "pilar": "3. Nosotros", "kpi": "SST", "um": "#", "parcial": 0, "cumple": 0, "excede": 0, "gerencia": "G. Central Industrial", "dir": "menor", "peso": 0.1}, {"id": "CAL-01", "pilar": "2. Rentabilidad", "kpi": "Costo de no calidad / Ventas (%)", "um": "%", "parcial": null, "cumple": null, "excede": null, "gerencia": "G. Calidad", "dir": "menor", "peso": 0.3}, {"id": "CAL-02", "pilar": "1. Enfoque al Cliente", "kpi": "% cumplimiento de capacitaciones", "um": "%", "parcial": null, "cumple": null, "excede": null, "gerencia": "G. Calidad", "dir": "mayor", "peso": 0.25}, {"id": "CAL-03", "pilar": "5. Producción", "kpi": "% cumplimiento requisitos críticos (calidad)", "um": "%", "parcial": null, "cumple": null, "excede": null, "gerencia": "G. Calidad", "dir": "mayor", "peso": 0.2}, {"id": "CAL-04", "pilar": "1. Enfoque al Cliente", "kpi": "Tiempo atención reclamos internos (días)", "um": "días", "parcial": null, "cumple": null, "excede": null, "gerencia": "G. Calidad", "dir": "menor", "peso": 0.15}, {"id": "CAL-05", "pilar": "3. Nosotros", "kpi": "Talento GSE", "um": "#", "parcial": null, "cumple": null, "excede": null, "gerencia": "G. Calidad", "dir": "mayor", "peso": 0.1}];
+const SIM_ACTUALS={"GG-01|Ene|2026": 300.997, "GG-01|Feb|2026": 312.01, "GG-01|Mar|2026": 323.022, "GG-01|Abr|2026": 334.034, "GG-02|Ene|2026": 4.093, "GG-02|Feb|2026": 3.98, "GG-02|Mar|2026": 3.904, "GG-02|Abr|2026": 3.866, "GG-03|Ene|2026": 112.32, "GG-03|Feb|2026": 115.2, "GG-03|Mar|2026": 118.08, "GG-03|Abr|2026": 122.4, "GG-04|Ene|2026": 1.115, "GG-04|Feb|2026": 1.139, "GG-04|Mar|2026": 1.176, "GG-04|Abr|2026": 1.201, "GG-05|Ene|2026": 40.95, "GG-05|Feb|2026": 41.85, "GG-05|Mar|2026": 42.75, "GG-05|Abr|2026": 43.65, "NEG-01|Ene|2026": 300.997, "NEG-01|Feb|2026": 312.01, "NEG-01|Mar|2026": 323.022, "NEG-01|Abr|2026": 334.034, "NEG-02|Ene|2026": 1.438, "NEG-02|Feb|2026": 1.424, "NEG-02|Mar|2026": 1.396, "NEG-02|Abr|2026": 1.382, "NEG-03|Ene|2026": 88.35, "NEG-03|Feb|2026": 90.25, "NEG-03|Mar|2026": 91.2, "NEG-03|Abr|2026": 92.15, "NEG-04|Ene|2026": 15.84, "NEG-04|Feb|2026": 16.2, "NEG-04|Mar|2026": 16.56, "NEG-04|Abr|2026": 16.92, "NEG-05|Ene|2026": 40.95, "NEG-05|Feb|2026": 41.85, "NEG-05|Mar|2026": 42.75, "NEG-05|Abr|2026": 43.65, "FIN-01|Ene|2026": 85.68, "FIN-01|Feb|2026": 84.864, "FIN-01|Mar|2026": 83.232, "FIN-01|Abr|2026": 82.416, "FIN-02|Ene|2026": 0.93, "FIN-02|Feb|2026": 0.95, "FIN-02|Mar|2026": 0.97, "FIN-02|Abr|2026": 0.99, "FIN-03|Ene|2026": 4.4, "FIN-03|Feb|2026": 4.55, "FIN-03|Mar|2026": 4.65, "FIN-03|Abr|2026": 4.8, "FIN-04|Ene|2026": 27.0, "FIN-04|Feb|2026": 27.6, "FIN-04|Mar|2026": 28.5, "FIN-04|Abr|2026": 29.1, "FIN-05|Ene|2026": 40.95, "FIN-05|Feb|2026": 41.85, "FIN-05|Mar|2026": 42.75, "FIN-05|Abr|2026": 43.65, "TAL-01|Ene|2026": 0.0, "TAL-01|Feb|2026": 0.0, "TAL-01|Mar|2026": 0.0, "TAL-01|Abr|2026": 0.0, "TAL-02|Ene|2026": 40.95, "TAL-02|Feb|2026": 41.85, "TAL-02|Mar|2026": 42.75, "TAL-02|Abr|2026": 43.65, "TAL-03|Ene|2026": 8.5, "TAL-03|Feb|2026": 8.8, "TAL-03|Mar|2026": 9.2, "TAL-03|Abr|2026": 9.5, "TAL-04|Ene|2026": 1.115, "TAL-04|Feb|2026": 1.139, "TAL-04|Mar|2026": 1.176, "TAL-04|Abr|2026": 1.201, "TAL-05|Ene|2026": 79.05, "TAL-05|Feb|2026": 80.75, "TAL-05|Mar|2026": 81.6, "TAL-05|Abr|2026": 82.45, "OPE-02|Ene|2026": 4.017, "OPE-02|Feb|2026": 3.98, "OPE-02|Mar|2026": 3.904, "OPE-02|Abr|2026": 3.866, "OPE-03|Ene|2026": 86.48, "OPE-03|Feb|2026": 88.36, "OPE-03|Mar|2026": 89.3, "OPE-03|Abr|2026": 90.24, "OPE-04|Ene|2026": 40.95, "OPE-04|Feb|2026": 41.85, "OPE-04|Mar|2026": 42.75, "OPE-04|Abr|2026": 43.65, "OPE-05|Ene|2026": 0.0, "OPE-05|Feb|2026": 0.0, "OPE-05|Mar|2026": 0.0, "OPE-05|Abr|2026": 0.0, "PRO-01|Ene|2026": 4.017, "PRO-01|Feb|2026": 3.98, "PRO-01|Mar|2026": 3.904, "PRO-01|Abr|2026": 3.866, "PRO-03|Ene|2026": 88.35, "PRO-03|Feb|2026": 90.25, "PRO-03|Mar|2026": 91.2, "PRO-03|Abr|2026": 92.15, "PRO-04|Ene|2026": 40.95, "PRO-04|Feb|2026": 41.85, "PRO-04|Mar|2026": 42.75, "PRO-04|Abr|2026": 43.65, "PRO-05|Ene|2026": 0.0, "PRO-05|Feb|2026": 0.0, "PRO-05|Mar|2026": 0.0, "PRO-05|Abr|2026": 0.0, "IND-04|Ene|2026": 40.95, "IND-04|Feb|2026": 41.85, "IND-04|Mar|2026": 42.75, "IND-04|Abr|2026": 43.65, "IND-05|Ene|2026": 0.0, "IND-05|Feb|2026": 0.0, "IND-05|Mar|2026": 0.0, "IND-05|Abr|2026": 0.0};
+const MESES_ORD={Ene:1,Feb:2,Mar:3,Abr:4,May:5,Jun:6,Jul:7,Ago:8,Sep:9,Oct:10,Nov:11,Dic:12};
+const MESES_LABEL={Ene:"Enero",Feb:"Febrero",Mar:"Marzo",Abr:"Abril",May:"Mayo",Jun:"Junio",Jul:"Julio",Ago:"Agosto",Sep:"Septiembre",Oct:"Octubre",Nov:"Noviembre",Dic:"Diciembre"};
+const PILARES_INFO=[{id:"1. Enfoque al Cliente",ico:"🎯",desc:"Ventas, servicio, marca y precio"},{id:"2. Rentabilidad",ico:"📈",desc:"EBITDA, costos, OPEX y productividad"},{id:"3. Nosotros",ico:"🤝",desc:"Talento, clima, SST y desarrollo"},{id:"4. Innovación",ico:"💡",desc:"Tecnología, procesos y gestión de riesgos"},{id:"5. Producción",ico:"🐓",desc:"Eficiencia productiva, calidad e inventarios"}];
+const GERS=[{name:"Gerencia General",resp:"Rafael V.",init:"RV"},{name:"GC. De Negocios",resp:"Hamilton S.",init:"HS"},{name:"GC. De Finanzas",resp:"Patricio B.",init:"PB"},{name:"GC. Talento TEC y Seguridad",resp:"Luis Felipe",init:"LF"},{name:"Director de Operaciones",resp:"Felipe R.",init:"FR"},{name:"G. Central Producción",resp:"Luis B.",init:"LB"},{name:"G. Central Industrial",resp:"Yiesmin Z.",init:"YZ"},{name:"G. Calidad",resp:"Fiorella P.",init:"FP"}];
+const EQUIPO=[{init:"RV",name:"Rafael V.",role:"Gerencia General",tipo:"gold"},{init:"FR",name:"Felipe R.",role:"Director de Operaciones",tipo:"green"},{init:"LB",name:"Luis B.",role:"GC. Producción Pecuaria",tipo:"green"},{init:"YZ",name:"Yiesmin Z.",role:"GC. Producción Industrial",tipo:"green"},{init:"LF",name:"Luis Felipe",role:"GC. Talento, Tecnología y Seguridad",tipo:"green"},{init:"PB",name:"Patricio B.",role:"GC. Administración y Finanzas",tipo:"green"},{init:"HS",name:"Hamilton S.",role:"GC. de Negocios",tipo:"green"},{init:"AC",name:"Alonso C.",role:"Sub Gerencia de Logística",tipo:"gray"},{init:"FP",name:"Fiorella P.",role:"Gerencia de Calidad",tipo:"gray"},{init:"VS",name:"Victor S.",role:"Auditor Interno",tipo:"auditor"}];
 
-const MESES_ORD = {Ene:1,Feb:2,Mar:3,Abr:4,May:5,Jun:6,Jul:7,Ago:8,Sep:9,Oct:10,Nov:11,Dic:12};
-
-const EQUIPO = [
-  {init:"RV",name:"Rafael V.",role:"Gerencia General",tipo:"gold"},
-  {init:"FR",name:"Felipe R.",role:"Director de Operaciones",tipo:"blue"},
-  {init:"LB",name:"Luis B.",role:"GC. de Producción Pecuaria",tipo:"blue"},
-  {init:"YZ",name:"Yiesmin Z.",role:"GC. de Producción Industrial",tipo:"blue"},
-  {init:"LF",name:"Luis Felipe",role:"GC. Talento, Tecnología y Seguridad",tipo:"blue"},
-  {init:"PB",name:"Patricio B.",role:"GC. de Administración y Finanzas",tipo:"blue"},
-  {init:"HS",name:"Hamilton S.",role:"GC. de Negocios",tipo:"blue"},
-  {init:"AC",name:"Alonso C.",role:"Sub Gerencia de Logística",tipo:"gray"},
-  {init:"FP",name:"Fiorella P.",role:"Gerencia de Calidad",tipo:"gray"},
-  {init:"VS",name:"Victor S.",role:"Auditor Interno",tipo:"gold"},
-];
-
-const PILARES_INFO = [
-  {id:"1. Enfoque al Cliente",icon:"🎯",desc:"Ventas, servicio, marca y precio"},
-  {id:"2. Rentabilidad",icon:"📈",desc:"EBITDA, costos, OPEX y productividad"},
-  {id:"3. Nosotros",icon:"🤝",desc:"Talento, clima, SST y desarrollo"},
-  {id:"4. Innovación",icon:"💡",desc:"Tecnología, procesos y gestión de riesgos"},
-  {id:"5. Producción",icon:"🐓",desc:"Eficiencia productiva, calidad e inventarios"},
-];
-
-const GERENCIAS = [
-  {name:"Gerencia General",resp:"Rafael V.",init:"RV"},
-  {name:"GC. De Negocios",resp:"Hamilton S.",init:"HS"},
-  {name:"GC. De Finanzas",resp:"Patricio B.",init:"PB"},
-  {name:"GC. Talento TEC y Seguridad",resp:"Luis Felipe",init:"LF"},
-  {name:"Director de Operaciones",resp:"Felipe R.",init:"FR"},
-  {name:"G. Central Producción",resp:"Luis B.",init:"LB"},
-  {name:"G. Central Industrial",resp:"Yiesmin Z.",init:"YZ"},
-  {name:"G. Calidad",resp:"Fiorella P.",init:"FP"},
-];
+let MES_SEL = "Abr|2026"; // default: latest
+let radarChart=null,barChart=null,lineCharts={};
 
 // ── STORAGE ───────────────────────────────────────────────────────────────────
-function loadActuals(){
-  try{return JSON.parse(localStorage.getItem('gse_actuals')||'{}');}catch{return {};}
-}
-function saveActuals(data){localStorage.setItem('gse_actuals',JSON.stringify(data));}
+function loadA(){try{const u=JSON.parse(localStorage.getItem('gse_actuals')||'{}');return {...SIM_ACTUALS,...u};}catch{return {...SIM_ACTUALS};}}
+function saveA(d){const u={};const s=SIM_ACTUALS;for(const[k,v]of Object.entries(d)){if(s[k]!==v)u[k]=v;}localStorage.setItem('gse_actuals',JSON.stringify(u));}
 
-// key: "KPI_ID|Mes|Año"
-function getReal(id,mes,ano){
-  const d=loadActuals();
-  return d[`${id}|${mes}|${ano}`]??null;
-}
+function getReal(id,mes,ano){const d=loadA();return d[`${id}|${mes}|${ano}`]??null;}
 
-function getLatestReal(id){
-  const d=loadActuals();
-  let best=null,bestOrd=0;
-  for(const [k,v] of Object.entries(d)){
-    const parts=k.split('|');
-    if(parts[0]===id){
-      const ord=parseInt(parts[2])*100+(MESES_ORD[parts[1]]||0);
-      if(ord>bestOrd){bestOrd=ord;best={val:v,mes:parts[1],ano:parts[2]};}
-    }
-  }
+function getLatest(id,filtro){
+  const d=loadA();
+  if(filtro&&filtro!=="todos"){const[m,a]=filtro.split('|');const v=d[`${id}|${m}|${a}`];return v!==undefined?{val:v,mes:m,ano:a}:null;}
+  let best=null,bo=0;
+  for(const[k,v]of Object.entries(d)){const p=k.split('|');if(p[0]===id){const o=parseInt(p[2])*100+(MESES_ORD[p[1]]||0);if(o>bo){bo=o;best={val:v,mes:p[1],ano:p[2]};}}}
   return best;
 }
 
-function getPrevReal(id,mes,ano){
-  const d=loadActuals();
-  const curr=parseInt(ano)*100+(MESES_ORD[mes]||0);
-  let best=null,bestOrd=0;
-  for(const [k,v] of Object.entries(d)){
-    const parts=k.split('|');
-    if(parts[0]===id){
-      const ord=parseInt(parts[2])*100+(MESES_ORD[parts[1]]||0);
-      if(ord<curr&&ord>bestOrd){bestOrd=ord;best=v;}
-    }
-  }
-  return best;
+function getHistorial(id){
+  const d=loadA();const h=[];
+  for(const[k,v]of Object.entries(d)){const p=k.split('|');if(p[0]===id)h.push({mes:p[1],ano:p[2],val:v,ord:parseInt(p[2])*100+(MESES_ORD[p[1]]||0)});}
+  return h.sort((a,b)=>a.ord-b.ord);
 }
 
-// ── SEMAFORO LOGIC ────────────────────────────────────────────────────────────
-function semaforo(kpi,real){
-  if(real===null||real===undefined||real==='')return 'sin-datos';
-  const r=parseFloat(real);
-  if(isNaN(r))return 'sin-datos';
-  const p=kpi.parcial,c=kpi.cumple;
-  if(p===null||c===null)return 'sin-datos';
-  if(kpi.dir==='mayor'){
-    if(r>=c)return 'cumple';
-    if(r>=p)return 'parcial';
-    return 'no-cumple';
-  } else {
-    if(r<=c)return 'cumple';
-    if(r<=p)return 'parcial';
-    return 'no-cumple';
-  }
+// ── SEMAFORO ─────────────────────────────────────────────────────────────────
+function sem(k,real){
+  if(real===null||real===undefined||real==='')return 'sd';
+  const r=parseFloat(real);if(isNaN(r))return 'sd';
+  if(k.parcial===null||k.cumple===null)return 'sd';
+  if(k.dir==='mayor')return r>=k.cumple?'g':r>=k.parcial?'y':'r';
+  return r<=k.cumple?'g':r<=k.parcial?'y':'r';
+}
+function semB(s){if(s==='g')return'<span class="badge bg">🟢 Cumple</span>';if(s==='y')return'<span class="badge by">🟡 Parcial</span>';if(s==='r')return'<span class="badge br">🔴 No cumple</span>';return'<span class="badge bn">⬜ Sin datos</span>';}
+function semC(s){return s==='g'?'#E8F5E9':s==='y'?'#FFFDE7':s==='r'?'#FFEBEE':'#F5F5F5';}
+function pct(k,r){if(r===null||!k.cumple)return null;return(parseFloat(r)/k.cumple*100).toFixed(1);}
+
+// TALENTO CONSOLIDADO: promedio de todas las gerencias para ese KPI id que contenga "talento"
+function getTalentoConsolidado(filtro){
+  const talKpis=KPIS.filter(k=>k.kpi.toLowerCase().includes('talento')||k.kpi.toLowerCase().includes('ment'));
+  const vals=[];
+  talKpis.forEach(k=>{const lr=getLatest(k.id,filtro);if(lr&&lr.val!==null)vals.push(parseFloat(lr.val));});
+  return vals.length>0?vals.reduce((a,b)=>a+b,0)/vals.length:null;
 }
 
-function semBadge(s){
-  if(s==='cumple')return '<span class="badge bg-g">🟢 Cumple</span>';
-  if(s==='parcial')return '<span class="badge bg-y">🟡 Parcial</span>';
-  if(s==='no-cumple')return '<span class="badge bg-r">🔴 No cumple</span>';
-  return '<span class="badge bg-n">⬜ Sin datos</span>';
+function scoreGer(gerName,filtro){
+  const ks=KPIS.filter(k=>k.gerencia===gerName);
+  let sc=0,tot=0;
+  ks.forEach(k=>{const lr=getLatest(k.id,filtro);const s=sem(k,lr?lr.val:null);if(s!=='sd'){if(s==='g')sc+=k.peso;else if(s==='y')sc+=k.peso*.5;tot+=k.peso;}});
+  return tot>0?(sc/tot*100).toFixed(0):null;
 }
 
-function pct(kpi,real){
-  if(real===null||!kpi.cumple)return null;
-  return (parseFloat(real)/kpi.cumple*100).toFixed(1)+'%';
+function scorePilar(pilarId,filtro){
+  const ks=KPIS.filter(k=>k.pilar===pilarId);
+  let sc=0,tot=0;
+  ks.forEach(k=>{const lr=getLatest(k.id,filtro);const s=sem(k,lr?lr.val:null);if(s!=='sd'){if(s==='g')sc+=k.peso;else if(s==='y')sc+=k.peso*.5;tot+=k.peso;}});
+  return tot>0?Math.round(sc/tot*100):0;
 }
 
-function tendencia(real,prev){
-  if(real===null||prev===null)return '—';
-  return parseFloat(real)>parseFloat(prev)?'↑':'↓';
-}
-
-// ── NAVIGATION ────────────────────────────────────────────────────────────────
+// ── NAV ───────────────────────────────────────────────────────────────────────
 function nav(id,el){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   document.getElementById('pg-'+id).classList.add('active');
-  el.classList.add('active');
-  const titles={home:'Portal Estratégico',identidad:'Identidad GSE',equipo:'Plana Directiva',
-    pilares:'Pilares Estratégicos',objetivos:'Objetivos 2026',gerencias:'Tablero por Gerencia',
-    semaforo:'Semáforo Consolidado',tendencias:'Tendencias Mensuales'};
-  document.getElementById('topbar-ttl').textContent=titles[id]||id;
+  if(el)el.classList.add('active');
   window.scrollTo(0,0);
-  renderPage(id);
+  render(id);
+}
+
+function cambiarMes(val){
+  MES_SEL=val;
+  const lbl=val==='todos'?'Todos los meses':MESES_LABEL[val.split('|')[0]]+' '+val.split('|')[1];
+  document.getElementById('mes-badge').textContent='· '+lbl;
+  document.getElementById('home-mes-lbl').textContent=lbl;
+  document.getElementById('home-pilar-mes').textContent=lbl;
+  // re-render active page
+  const active=document.querySelector('.page.active');
+  if(active)render(active.id.replace('pg-',''));
 }
 
 // ── RENDER HOME ───────────────────────────────────────────────────────────────
 function renderHome(){
-  let verde=0,amarillo=0,rojo=0,sindatos=0;
-  KPIS.forEach(k=>{
-    const r=getLatestReal(k.id);
-    const s=semaforo(k,r?r.val:null);
-    if(s==='cumple')verde++;
-    else if(s==='parcial')amarillo++;
-    else if(s==='no-cumple')rojo++;
-    else sindatos++;
-  });
-  const total=KPIS.length;
+  let g=0,y=0,r=0,sd=0;
+  KPIS.forEach(k=>{const lr=getLatest(k.id,MES_SEL);const s=sem(k,lr?lr.val:null);if(s==='g')g++;else if(s==='y')y++;else if(s==='r')r++;else sd++;});
   document.getElementById('home-stats').innerHTML=`
-    <div class="stat"><div class="stat-l">Total KPIs</div><div class="stat-v">${total}</div><div class="stat-s">con objetivos formales</div></div>
-    <div class="stat" style="border-left:3px solid #16a34a"><div class="stat-l">🟢 En línea</div><div class="stat-v" style="color:#166534">${verde}</div><div class="stat-s">Cumple meta</div></div>
-    <div class="stat" style="border-left:3px solid #d97706"><div class="stat-l">🟡 En seguimiento</div><div class="stat-v" style="color:#92400E">${amarillo}</div><div class="stat-s">Parcialmente</div></div>
-    <div class="stat" style="border-left:3px solid #dc2626"><div class="stat-l">🔴 Requieren acción</div><div class="stat-v" style="color:#991B1B">${rojo}</div><div class="stat-s">No cumple meta</div></div>`;
+    <div class="sc scd"><div class="sc-lbl">Total KPIs</div><div class="sc-val" style="color:var(--gd)">${KPIS.length}</div><div class="sc-sub">con objetivos formales</div></div>
+    <div class="sc scg"><div class="sc-lbl">🟢 Cumple</div><div class="sc-val" style="color:#1B5E20">${g}</div><div class="sc-sub">En línea con meta</div></div>
+    <div class="sc scy"><div class="sc-lbl">🟡 Parcial</div><div class="sc-val" style="color:#F57F17">${y}</div><div class="sc-sub">En seguimiento</div></div>
+    <div class="sc scr"><div class="sc-lbl">🔴 No cumple</div><div class="sc-val" style="color:#B71C1C">${r}</div><div class="sc-sub">Requieren acción</div></div>`;
 
-  // Pilares summary
-  let pilaresHTML='<div class="grid5">';
-  PILARES_INFO.forEach(p=>{
-    const kpis=KPIS.filter(k=>k.pilar===p.id);
-    let pv=0,pa=0,pr=0;
-    kpis.forEach(k=>{const r=getLatestReal(k.id);const s=semaforo(k,r?r.val:null);if(s==='cumple')pv++;else if(s==='parcial')pa++;else if(s==='no-cumple')pr++;});
-    const dom=pv>=pa&&pv>=pr?'bg-g':pa>=pr?'bg-y':pr>0?'bg-r':'bg-n';
-    pilaresHTML+=`<div class="card" style="text-align:center;padding:14px">
-      <div style="font-size:22px;margin-bottom:6px">${p.icon}</div>
-      <div style="font-size:11px;font-weight:600;margin-bottom:6px">${p.id}</div>
-      <div style="display:flex;gap:4px;justify-content:center;flex-wrap:wrap">
-        <span class="badge bg-g">${pv}🟢</span>
-        <span class="badge bg-y">${pa}🟡</span>
-        <span class="badge bg-r">${pr}🔴</span>
+  let ph='<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">';
+  PILARES_INFO.forEach((p,i)=>{
+    const ks=KPIS.filter(k=>k.pilar===p.id);
+    let pg=0,py=0,pr=0;
+    ks.forEach(k=>{const lr=getLatest(k.id,MES_SEL);const s=sem(k,lr?lr.val:null);if(s==='g')pg++;else if(s==='y')py++;else if(s==='r')pr++;});
+    const sc=scorePilar(p.id,MES_SEL);
+    ph+=`<div class="card${i===4?' style="grid-column:1/-1"':''}">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        <div style="width:38px;height:38px;border-radius:9px;background:var(--gl);border:1px solid var(--brd);display:flex;align-items:center;justify-content:center;font-size:18px">${p.ico}</div>
+        <div>
+          <div style="font-family:'Lora',serif;font-size:14px;font-weight:600;color:var(--gd)">${p.id}</div>
+          <div style="font-size:10px;color:var(--txl)">${p.desc}</div>
+        </div>
+        <div style="margin-left:auto;text-align:center">
+          <div style="font-family:'Lora',serif;font-size:20px;font-weight:600;color:${sc>=95?'#1B5E20':sc>=80?'#F57F17':'#B71C1C'}">${sc}%</div>
+          <div style="font-size:9px;color:var(--txl)">cumplimiento</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:6px">
+        <span class="badge bg">${pg}🟢</span>
+        <span class="badge by">${py}🟡</span>
+        <span class="badge br">${pr}🔴</span>
+        <span class="badge bn">${ks.length-pg-py-pr}⬜</span>
       </div>
     </div>`;
   });
-  pilaresHTML+='</div>';
-  document.getElementById('home-pilares').innerHTML=pilaresHTML;
+  ph+='</div>';
+  document.getElementById('home-pilares').innerHTML=ph;
 
-  // Gerencias mini
-  let gerHTML='<div class="grid2">';
-  GERENCIAS.forEach(g=>{
-    const kpis=KPIS.filter(k=>k.gerencia===g.name);
-    let sc=0,cnt=0;
-    kpis.forEach(k=>{const r=getLatestReal(k.id);const s=semaforo(k,r?r.val:null);if(s!=='sin-datos'){sc+=s==='cumple'?k.peso:s==='parcial'?k.peso*.5:0;cnt++;}});
-    const score=kpis.reduce((a,k)=>a+k.peso,0)>0?(sc/kpis.reduce((a,k)=>a+k.peso,0)*100).toFixed(0)+'%':'—';
-    gerHTML+=`<div class="stat" style="display:flex;align-items:center;gap:12px">
-      <div class="avatar">${g.init}</div>
-      <div style="flex:1">
-        <div style="font-size:12px;font-weight:600">${g.name}</div>
-        <div style="font-size:10px;color:var(--muted)">${g.resp}</div>
-        <div style="font-size:10px;margin-top:4px">Score: <strong>${score}</strong></div>
+  let gh='';
+  GERS.forEach(g=>{
+    const sc=scoreGer(g.name,MES_SEL);
+    const col=sc===null?'var(--txl)':parseInt(sc)>=95?'#1B5E20':parseInt(sc)>=80?'#F57F17':'#B71C1C';
+    gh+=`<div class="pc"><div class="av dk">${g.init}</div><div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--gd)">${g.name}</div><div style="font-size:10px;color:var(--txl)">${g.resp}</div></div><div style="text-align:right"><div style="font-family:'Lora',serif;font-size:22px;font-weight:600;color:${col}">${sc??'—'}${sc?'%':''}</div><div style="font-size:9px;color:var(--txl)">score</div></div></div>`;
+  });
+  document.getElementById('home-gers').innerHTML=gh;
+}
+
+// ── RENDER PILARES ────────────────────────────────────────────────────────────
+function renderPilares(){
+  let html='<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">';
+  PILARES_INFO.forEach((p,i)=>{
+    const ks=KPIS.filter(k=>k.pilar===p.id);
+    html+=`<div class="card${i===4?' style="grid-column:1/-1"':''}">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--brd)">
+        <div style="width:40px;height:40px;border-radius:9px;background:var(--gl);border:1px solid var(--brd);display:flex;align-items:center;justify-content:center;font-size:20px">${p.ico}</div>
+        <div><div style="font-family:'Lora',serif;font-size:15px;font-weight:600;color:var(--gd)">${p.id}</div><div style="font-size:11px;color:var(--txl)">${p.desc}</div></div>
+        <div style="margin-left:auto"><span class="badge bgl">${ks.length} KPIs</span></div>
       </div>
+      ${ks.map(k=>{const lr=getLatest(k.id,MES_SEL);const s=sem(k,lr?lr.val:null);const real=lr?lr.val:null;
+      return`<div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid rgba(0,0,0,.04);font-size:11px">
+        <span style="flex:1;color:var(--txt)">${k.kpi}</span>
+        <span style="font-family:'Courier New',monospace;font-size:10px;color:var(--txl)">${k.um}</span>
+        <span style="font-family:'Courier New',monospace;font-size:11px;font-weight:600;color:${s==='g'?'#1B5E20':s==='r'?'#B71C1C':s==='y'?'#E65100':'var(--txl)'}">${real!==null?real:'—'}</span>
+        ${semB(s)}
+      </div>`;}).join('')}
     </div>`;
   });
-  gerHTML+='</div>';
-  document.getElementById('home-gerencias-mini').innerHTML=gerHTML;
+  html+='</div>';
+  document.getElementById('pilares-content').innerHTML=html;
 }
 
 // ── RENDER GERENCIAS ──────────────────────────────────────────────────────────
 function renderGerencias(){
   let html='';
-  GERENCIAS.forEach(g=>{
-    const kpis=KPIS.filter(k=>k.gerencia===g.name);
-    html+=`<div class="ger-block">
-      <div class="ger-head" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'':'none'">
-        <div class="avatar">${g.init}</div>
-        <div><div class="ger-name">${g.name}</div><div class="ger-resp">${g.resp}</div></div>
-        <span class="badge bg-gold" style="margin-left:8px">${kpis.length} KPIs</span>
-        <span style="margin-left:auto;color:rgba(255,255,255,.4)">▾</span>
+  GERS.forEach(g=>{
+    const ks=KPIS.filter(k=>k.gerencia===g.name);
+    const sc=scoreGer(g.name,MES_SEL);
+    const col=sc===null?'rgba(255,255,255,.4)':parseInt(sc)>=95?'#86efac':parseInt(sc)>=80?'#fde68a':'#fca5a5';
+    html+=`<div class="gb">
+      <div class="gh" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'':'none'">
+        <div class="gav">${g.init}</div>
+        <div><div class="gn">${g.name}</div><div class="gr">${g.resp}</div></div>
+        <div style="margin-left:auto;display:flex;align-items:center;gap:10px">
+          <span style="font-family:'Lora',serif;font-size:18px;font-weight:600;color:${col}">${sc??'—'}${sc?'%':''}</span>
+          <span style="color:rgba(255,255,255,.5)">▾</span>
+        </div>
       </div>
-      <div class="ger-body">
-        <div style="overflow-x:auto;margin-top:10px">
-        <table><thead><tr><th>Pilar</th><th>KPI / Indicador</th><th>UM</th><th>Peso</th><th>Meta Parcial</th><th>Meta Cumple</th><th>Real</th><th>% Cumpl.</th><th>Estado</th><th>Tend.</th></tr></thead>
-        <tbody>${kpis.map(k=>{
-          const lr=getLatestReal(k.id);
-          const real=lr?lr.val:null;
-          const prev=lr?getPrevReal(k.id,lr.mes,lr.ano):null;
-          const s=semaforo(k,real);
-          const p=pct(k,real);
-          const t=tendencia(real,prev);
-          return `<tr>
-            <td style="font-size:11px;color:var(--muted)">${k.pilar}</td>
-            <td style="font-weight:500">${k.kpi}</td>
-            <td style="font-family:'DM Mono',monospace;font-size:10px">${k.um}</td>
-            <td style="text-align:center">${(k.peso*100).toFixed(0)}%</td>
-            <td style="font-family:'DM Mono',monospace;font-size:11px">${k.parcial??'—'}</td>
-            <td style="font-family:'DM Mono',monospace;font-size:11px;font-weight:600">${k.cumple??'—'}</td>
-            <td style="font-family:'DM Mono',monospace;font-size:12px;font-weight:600;color:${s==='cumple'?'#166534':s==='no-cumple'?'#991B1B':s==='parcial'?'#92400E':'#6B7280'}">${real??'—'}</td>
-            <td style="font-size:11px">${p??'—'}</td>
-            <td>${semBadge(s)}</td>
-            <td style="font-size:16px">${t}</td>
-          </tr>`;
-        }).join('')}</tbody></table></div>
-      </div>
+      <div class="gbody"><div style="overflow-x:auto;margin-top:12px">
+      <table><thead><tr><th>Pilar</th><th>KPI / Indicador</th><th>UM</th><th>Peso</th><th>Meta Parcial</th><th>Meta Cumple</th><th>Real</th><th>% Cumpl.</th><th>Estado</th></tr></thead>
+      <tbody>${ks.map(k=>{
+        const lr=getLatest(k.id,MES_SEL);const real=lr?lr.val:null;
+        const s=sem(k,real);const p=pct(k,real);
+        return`<tr style="background:${semC(s)}20">
+          <td style="font-size:10px;color:var(--txl)">${k.pilar}</td>
+          <td style="font-weight:600;color:var(--gd)">${k.kpi}</td>
+          <td style="font-family:'Courier New',monospace;font-size:10px">${k.um}</td>
+          <td style="text-align:center">${(k.peso*100).toFixed(0)}%</td>
+          <td style="font-family:'Courier New',monospace">${k.parcial??'—'}</td>
+          <td style="font-family:'Courier New',monospace;font-weight:700">${k.cumple??'—'}</td>
+          <td style="font-family:'Courier New',monospace;font-weight:700;color:${s==='g'?'#1B5E20':s==='r'?'#B71C1C':s==='y'?'#E65100':'var(--txl)'}">${real??'—'}</td>
+          <td>${p?p+'%':'—'}</td>
+          <td>${semB(s)}</td>
+        </tr>`;}).join('')}
+      </tbody></table></div></div>
     </div>`;
   });
   document.getElementById('ger-content').innerHTML=html;
 }
 
-// ── RENDER SEMAFORO ───────────────────────────────────────────────────────────
+// ── RENDER SEMAFORO + RADAR ───────────────────────────────────────────────────
 function renderSemaforo(){
-  let verde=0,amarillo=0,rojo=0,sd=0;
-  let rows='';
+  let g=0,y=0,r=0;let rows='';
   KPIS.forEach(k=>{
-    const lr=getLatestReal(k.id);
-    const real=lr?lr.val:null;
-    const prev=lr?getPrevReal(k.id,lr.mes,lr.ano):null;
-    const s=semaforo(k,real);
-    const p=pct(k,real);
-    const t=tendencia(real,prev);
-    if(s==='cumple')verde++;else if(s==='parcial')amarillo++;else if(s==='no-cumple')rojo++;else sd++;
-    rows+=`<tr>
-      <td style="font-size:11px">${k.pilar}</td>
-      <td style="font-weight:500">${k.kpi}</td>
-      <td style="font-size:11px;color:var(--muted)">${k.gerencia}</td>
-      <td style="font-family:'DM Mono',monospace;font-size:10px">${k.um}</td>
-      <td style="font-family:'DM Mono',monospace;font-size:11px">${k.cumple??'—'}</td>
-      <td style="font-family:'DM Mono',monospace;font-size:12px;font-weight:600;color:${s==='cumple'?'#166534':s==='no-cumple'?'#991B1B':s==='parcial'?'#92400E':'#6B7280'}">${real??'—'}</td>
-      <td style="font-size:11px">${p??'—'}</td>
-      <td>${semBadge(s)}</td>
-      <td style="font-size:16px">${t}</td>
+    const lr=getLatest(k.id,MES_SEL);const real=lr?lr.val:null;
+    const s=sem(k,real);const p=pct(k,real);
+    if(s==='g')g++;else if(s==='y')y++;else if(s==='r')r++;
+    rows+=`<tr style="background:${semC(s)}15">
+      <td style="font-size:10px">${k.pilar}</td>
+      <td style="font-weight:600;color:var(--gd)">${k.kpi}</td>
+      <td style="font-size:10px;color:var(--txl)">${k.gerencia}</td>
+      <td style="font-family:'Courier New',monospace;font-size:10px">${k.um}</td>
+      <td style="font-family:'Courier New',monospace">${k.cumple??'—'}</td>
+      <td style="font-family:'Courier New',monospace;font-weight:700;color:${s==='g'?'#1B5E20':s==='r'?'#B71C1C':s==='y'?'#E65100':'var(--txl)'}">${real??'—'}</td>
+      <td>${p?p+'%':'—'}</td>
+      <td>${semB(s)}</td>
     </tr>`;
   });
   document.getElementById('sem-stats').innerHTML=`
-    <div class="stat"><div class="stat-l">Total KPIs</div><div class="stat-v">${KPIS.length}</div></div>
-    <div class="stat" style="border-left:3px solid #16a34a"><div class="stat-l">🟢 Cumple</div><div class="stat-v" style="color:#166534">${verde}</div></div>
-    <div class="stat" style="border-left:3px solid #d97706"><div class="stat-l">🟡 Parcial</div><div class="stat-v" style="color:#92400E">${amarillo}</div></div>
-    <div class="stat" style="border-left:3px solid #dc2626"><div class="stat-l">🔴 No cumple</div><div class="stat-v" style="color:#991B1B">${rojo}</div></div>`;
+    <div class="sc scd"><div class="sc-lbl">Total</div><div class="sc-val" style="color:var(--gd)">${KPIS.length}</div></div>
+    <div class="sc scg"><div class="sc-lbl">🟢 Cumple</div><div class="sc-val" style="color:#1B5E20">${g}</div></div>
+    <div class="sc scy"><div class="sc-lbl">🟡 Parcial</div><div class="sc-val" style="color:#F57F17">${y}</div></div>
+    <div class="sc scr"><div class="sc-lbl">🔴 No cumple</div><div class="sc-val" style="color:#B71C1C">${r}</div></div>`;
   document.getElementById('sem-body').innerHTML=rows;
-}
 
-// ── RENDER TENDENCIAS ─────────────────────────────────────────────────────────
-function renderTendencias(){
-  const meses=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
-  const d=loadActuals();
-  const byKpi={};
-  for(const [k,v] of Object.entries(d)){
-    const [id,mes,ano]=k.split('|');
-    if(!byKpi[id])byKpi[id]=[];
-    byKpi[id].push({mes,ano,val:v,ord:parseInt(ano)*100+(MESES_ORD[mes]||0)});
-  }
-  let html='';
-  KPIS.filter(k=>byKpi[k.id]&&byKpi[k.id].length>0).forEach(k=>{
-    const hist=byKpi[k.id].sort((a,b)=>a.ord-b.ord);
-    html+=`<div class="card" style="margin-bottom:14px">
-      <div style="font-size:12px;font-weight:600;margin-bottom:3px">${k.kpi}</div>
-      <div style="font-size:10px;color:var(--muted);margin-bottom:10px">${k.gerencia} · ${k.um} · Meta: ${k.cumple??'—'}</div>
-      <div style="display:flex;align-items:flex-end;gap:6px;height:60px">
-        ${hist.map(h=>{
-          const s=semaforo(k,h.val);
-          const col=s==='cumple'?'#16a34a':s==='parcial'?'#d97706':'#dc2626';
-          const maxVal=Math.max(...hist.map(x=>parseFloat(x.val)||0));
-          const ht=maxVal>0?Math.round((parseFloat(h.val)||0)/maxVal*100):10;
-          return `<div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex:1">
-            <div style="font-size:9px;font-family:'DM Mono',monospace;color:${col}">${h.val}</div>
-            <div style="width:100%;background:${col};border-radius:3px 3px 0 0;height:${Math.max(ht,8)}%"></div>
-            <div style="font-size:9px;color:var(--muted)">${h.mes}</div>
-          </div>`;
-        }).join('')}
-      </div>
-    </div>`;
+  // RADAR por pilar
+  const radarData=PILARES_INFO.map(p=>scorePilar(p.id,MES_SEL));
+  const radarLabels=PILARES_INFO.map(p=>p.id.split('. ')[1]||p.id);
+  if(radarChart)radarChart.destroy();
+  radarChart=new Chart(document.getElementById('radar-pilares'),{
+    type:'radar',
+    data:{labels:radarLabels,datasets:[{label:'% Cumplimiento',data:radarData,backgroundColor:'rgba(67,160,71,0.15)',borderColor:'#2E7D32',borderWidth:2,pointBackgroundColor:'#2E7D32',pointRadius:4},{label:'Meta (100%)',data:[100,100,100,100,100],backgroundColor:'rgba(200,168,75,0.05)',borderColor:'rgba(200,168,75,0.5)',borderWidth:1,borderDash:[4,4],pointRadius:0}]},
+    options:{responsive:true,scales:{r:{min:0,max:100,ticks:{stepSize:25,font:{size:9}},pointLabels:{font:{size:10,family:"'Montserrat',sans-serif"}}}},plugins:{legend:{position:'bottom',labels:{font:{size:10},boxWidth:12}}}}
   });
-  document.getElementById('tend-content').innerHTML=html||'<div class="card" style="text-align:center;color:var(--muted);padding:32px">Ingresa actuals de al menos un mes para ver las tendencias.</div>';
+
+  // BAR por gerencia
+  const gerScores=GERS.map(g=>scoreGer(g.name,MES_SEL));
+  const gerColors=gerScores.map(s=>s===null?'#E0EDE0':parseInt(s)>=95?'rgba(67,160,71,0.7)':parseInt(s)>=80?'rgba(249,168,37,0.7)':'rgba(229,57,53,0.7)');
+  if(barChart)barChart.destroy();
+  barChart=new Chart(document.getElementById('bar-gers'),{
+    type:'bar',
+    data:{labels:GERS.map(g=>g.init),datasets:[{label:'% Score ponderado',data:gerScores,backgroundColor:gerColors,borderRadius:5},{label:'Meta (100%)',data:GERS.map(()=>100),type:'line',borderColor:'rgba(200,168,75,0.6)',borderWidth:1,borderDash:[4,4],pointRadius:0,backgroundColor:'transparent'}]},
+    options:{responsive:true,indexAxis:'y',scales:{x:{min:0,max:100,ticks:{callback:v=>v+'%',font:{size:9}}}},plugins:{legend:{position:'bottom',labels:{font:{size:10},boxWidth:12}}}}
+  });
 }
 
-// ── RENDER PILARES ────────────────────────────────────────────────────────────
-function renderPilares(){
-  let html='<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">';
-  PILARES_INFO.forEach((p,i)=>{
-    const kpis=KPIS.filter(k=>k.pilar===p.id);
-    const span=i===4?'style="grid-column:1/-1"':'';
-    html+=`<div class="card" ${span}>
-      <div class="pilar-head">
-        <div class="pilar-icon" style="background:var(--gold-l);font-size:20px">${p.icon}</div>
-        <div>
-          <div style="font-family:'Playfair Display',serif;font-size:15px;font-weight:700">${p.id}</div>
-          <div style="font-size:11px;color:var(--muted)">${p.desc}</div>
+// ── RENDER TENDENCIAS + PLAN ──────────────────────────────────────────────────
+const PLANES={
+  "GG-01":"Revisar mix de canales y agilizar pedidos pendientes. Acelerar despachos del canal moderno.",
+  "GG-02":"Auditoría urgente de mermas. Renegociar precio de alimento balanceado con proveedor principal.",
+  "GG-03":"EBITDA afectado por alza en costo de alimento. Activar cobertura de insumos Q3.",
+  "GG-04":"Plan de capacitación en productividad por área. Medir ratio UB/hora por turno.",
+  "NEG-02":"Reducir gastos en flota de reparto. Renegociar condiciones canal CT.",
+  "NEG-03":"Reforzar seguimiento post-facturación. Capacitar fuerza de ventas en llenado de pedido completo.",
+  "FIN-01":"Revisar OPEX por centro de costo. Diferir inversiones no críticas al Q3.",
+  "FIN-02":"Acelerar cobros vencidos. Revisar condiciones de crédito con clientes de canal moderno.",
+  "TAL-03":"Intensificar inspecciones en planta. Capacitar personal de turno en protocolos de merma.",
+  "PRO-01":"Optimizar conversión alimenticia. Revisar densidad de galpones.",
+  "OPE-02":"Ver plan GG-02. Reducir paradas no programadas en línea de beneficio.",
+};
+
+function renderTendencias(){
+  const kpisConData=KPIS.filter(k=>{const h=getHistorial(k.id);return h.length>1;});
+  if(!kpisConData.length){document.getElementById('tend-content').innerHTML='<div class="card" style="text-align:center;padding:40px;color:var(--txl)"><div style="font-size:32px;margin-bottom:10px">📊</div><div style="font-family:\'Lora\',serif;font-size:16px;color:var(--gd)">Sin datos de tendencia aún</div><div style="font-size:12px;margin-top:5px">Ingresa actuals de al menos 2 meses.</div></div>';return;}
+
+  let html='';
+  // Destroy old charts
+  for(const id of Object.keys(lineCharts)){if(lineCharts[id])lineCharts[id].destroy();}
+  lineCharts={};
+
+  kpisConData.slice(0,12).forEach((k,idx)=>{
+    const h=getHistorial(k.id);
+    const labels=h.map(x=>x.mes+' '+x.ano);
+    const reals=h.map(x=>x.val);
+    const metas=h.map(()=>k.cumple);
+    const parciales=h.map(()=>k.parcial);
+    const lastReal=reals[reals.length-1];
+    const lastSem=sem(k,lastReal);
+    const desv=k.cumple?((lastReal/k.cumple-1)*100).toFixed(1):null;
+    const planId=Object.keys(PLANES).find(pid=>k.id.startsWith(pid.split('-')[0])&&pid===k.id)||Object.keys(PLANES).find(pid=>k.gerencia.includes(pid.split('-')[0].replace('GG','Gerencia')))||null;
+    const plan=PLANES[k.id]||null;
+
+    const canvasId=`lc-${k.id.replace('-','')}`;
+    html+=`<div class="card" style="margin-bottom:16px">
+      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px">
+        <div style="flex:1">
+          <div style="font-family:'Lora',serif;font-size:14px;font-weight:600;color:var(--gd)">${k.kpi}</div>
+          <div style="font-size:10px;color:var(--txl);margin-top:2px">${k.gerencia} · ${k.um} · Meta: <strong>${k.cumple??'—'}</strong></div>
+        </div>
+        <div style="text-align:right">
+          ${semB(lastSem)}
+          ${desv!==null?`<div style="font-size:11px;margin-top:3px;color:${parseFloat(desv)>=0&&k.dir==='mayor'||parseFloat(desv)<=0&&k.dir==='menor'?'#1B5E20':'#B71C1C'};font-weight:600">${desv>0?'+':''}${desv}% vs meta</div>`:''}
         </div>
       </div>
-      ${kpis.map(k=>{
-        const lr=getLatestReal(k.id);const real=lr?lr.val:null;const s=semaforo(k,real);
-        return `<div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid rgba(0,0,0,.04);font-size:11px">
-          <span style="flex:1">${k.kpi}</span>
-          <span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted)">${k.um}</span>
-          ${semBadge(s)}
-        </div>`;
-      }).join('')}
+      <div style="position:relative;height:160px"><canvas id="${canvasId}"></canvas></div>
+      ${(lastSem==='r'||lastSem==='y')&&plan?`<div class="plan-box"><strong>🎯 Plan de Acción:</strong> ${plan}</div>`:''}
     </div>`;
   });
-  html+='</div>';
-  document.getElementById('pilares-grid').innerHTML=html;
+  document.getElementById('tend-content').innerHTML=html;
+
+  // Build charts after DOM update
+  setTimeout(()=>{
+    kpisConData.slice(0,12).forEach(k=>{
+      const h=getHistorial(k.id);
+      const canvasId=`lc-${k.id.replace('-','')}`;
+      const el=document.getElementById(canvasId);
+      if(!el)return;
+      const colors=h.map(x=>sem(k,x.val)==='g'?'rgba(67,160,71,1)':sem(k,x.val)==='y'?'rgba(249,168,37,1)':'rgba(229,57,53,1)');
+      lineCharts[k.id]=new Chart(el,{
+        type:'line',
+        data:{labels:h.map(x=>x.mes),datasets:[
+          {label:'Real',data:h.map(x=>x.val),borderColor:'#2E7D32',backgroundColor:'rgba(67,160,71,0.1)',tension:.3,pointBackgroundColor:colors,pointRadius:5,fill:true},
+          {label:'Meta Cumple',data:h.map(()=>k.cumple),borderColor:'rgba(200,168,75,0.8)',borderDash:[5,5],pointRadius:0,tension:0,fill:false},
+          k.parcial!==null?{label:'Meta Parcial',data:h.map(()=>k.parcial),borderColor:'rgba(229,57,53,0.4)',borderDash:[3,3],pointRadius:0,tension:0,fill:false}:null
+        ].filter(Boolean)},
+        options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{font:{size:9},boxWidth:10}}},scales:{y:{ticks:{font:{size:9}}},x:{ticks:{font:{size:9}}}}}
+      });
+    });
+  },50);
 }
 
-// ── RENDER EQUIPO ─────────────────────────────────────────────────────────────
+// ── EQUIPO ────────────────────────────────────────────────────────────────────
 function renderEquipo(){
   document.getElementById('equipo-grid').innerHTML=EQUIPO.map(e=>`
-    <div class="stat" style="display:flex;align-items:center;gap:12px;${e.tipo==='gold'?'border:2px solid var(--gold)':''}">
-      <div class="avatar" style="${e.tipo==='gold'?'background:rgba(200,168,75,.25);color:var(--gold)':''}">${e.init}</div>
+    <div class="pc${e.tipo==='gold'?' hi':''}">
+      <div class="av${e.tipo==='green'?' dk':''}" style="${e.tipo==='auditor'?'background:#F3F4F6;color:#6B7280;border-color:#D1D5DB':e.tipo==='gold'?'border-color:var(--ga)':''}">${e.init}</div>
       <div>
-        <div style="font-size:13px;font-weight:600">${e.name}</div>
-        <div style="font-size:11px;color:var(--muted)">${e.role}</div>
-        <div style="margin-top:4px"><span class="badge ${e.tipo==='gold'?'bg-gold':e.tipo==='gray'?'bg-n':'bg-blue'}">${e.tipo==='gold'?'Gerente General':e.tipo==='gray'?'Pendiente':'Gerencia Central'}</span></div>
+        <div style="font-size:13px;font-weight:600;color:var(--gd)">${e.name}</div>
+        <div style="font-size:11px;color:var(--txl);margin-top:2px">${e.role}</div>
+        <div style="margin-top:5px"><span class="badge ${e.tipo==='gold'?'bgl':e.tipo==='auditor'?'bn':'bg'}">${e.tipo==='gold'?'Gerente General':e.tipo==='auditor'?'Auditor Interno':e.tipo==='gray'?'Pendiente':'GC'}</span></div>
       </div>
     </div>`).join('');
 }
 
-// ── RENDER OBJETIVOS ──────────────────────────────────────────────────────────
-function renderObjetivos(){
-  const objs=[
-    {n:"4",titulo:"Mejorar en la gestión de precio",color:"var(--gold)",kpis:[
-      {kpi:"Venta total Gestionable + Merma",um:"S/. MM",p:348.7,c:367.1,e:385.4,com:"Canales P.+HOR+AASS+CT(A)+Merma"}]},
-    {n:"9",titulo:"Incrementar nuestro EBITDA",color:"#166534",kpis:[
-      {kpi:"EBITDA",um:"S/. MM",p:136.8,c:144.0,e:151.2,com:""}]},
-    {n:"6",titulo:"Reducir nuestros costos",color:"#991B1B",kpis:[
-      {kpi:"Costo x Kg - CT",um:"S/ x Kg",p:3.979,c:3.790,e:3.600,com:"Costo CT - PPTO C/Dep."},
-      {kpi:"Productividad (UB/S. personas)",um:"S/.",p:1.163,c:1.225,e:1.286,com:"UB/soles de personas"}]},
-    {n:"2",titulo:"Mejorar el Clima Laboral en GSE",color:"#1E3A8A",kpis:[
-      {kpi:"Talento GSE",um:"%",p:42.75,c:45.0,e:49.5,com:"HC en verde (18)/HC puestos Claves (40)"}]},
-  ];
-  document.getElementById('objetivos-content').innerHTML=`<div class="grid2">${objs.map(o=>`
-    <div class="card" style="border-left:4px solid ${o.color}">
-      <div class="sl" style="margin-top:0;color:${o.color}">Objetivo ${o.n}</div>
-      <div style="font-size:14px;font-weight:600;margin-bottom:10px">${o.titulo}</div>
-      <table><thead><tr><th>KPI</th><th>UM</th><th>Parcial</th><th>Cumple</th><th>Excede</th></tr></thead>
-      <tbody>${o.kpis.map(k=>`<tr><td>${k.kpi}</td><td style="font-family:'DM Mono',monospace;font-size:10px">${k.um}</td><td>${k.p}</td><td style="font-weight:600">${k.c}</td><td>${k.e}</td></tr>`).join('')}</tbody></table>
-      ${o.kpis[0].com?`<div style="font-size:10px;color:var(--muted);margin-top:6px">${o.kpis[0].com}</div>`:''}
-    </div>`).join('')}</div>`;
-}
-
 // ── MODAL ─────────────────────────────────────────────────────────────────────
 function openModal(){
-  const rows=KPIS.map(k=>`<tr>
-    <td style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted)">${k.id}</td>
-    <td style="font-size:11px">${k.gerencia}</td>
-    <td style="font-size:11px;font-weight:500">${k.kpi}</td>
-    <td style="font-family:'DM Mono',monospace;font-size:10px">${k.um}</td>
-    <td style="font-family:'DM Mono',monospace;font-size:11px">${k.cumple??'—'}</td>
-    <td><input class="real-input" type="number" step="any" placeholder="—" id="real-${k.id}" style="border-color:#93C5FD;background:#EFF6FF"></td>
+  document.getElementById('modal-body').innerHTML=KPIS.map(k=>`<tr style="border-bottom:1px solid var(--brd)">
+    <td style="padding:5px 9px;font-family:'Courier New',monospace;font-size:10px;color:var(--txl)">${k.id}</td>
+    <td style="padding:5px 9px;font-size:11px">${k.gerencia}</td>
+    <td style="padding:5px 9px;font-size:11px;font-weight:600;color:var(--gd)">${k.kpi}</td>
+    <td style="padding:5px 9px;font-family:'Courier New',monospace;font-size:10px">${k.um}</td>
+    <td style="padding:5px 9px;font-family:'Courier New',monospace;font-size:11px;font-weight:600">${k.cumple??'—'}</td>
+    <td style="padding:5px 9px"><input class="ri" type="number" step="any" placeholder="—" id="ri-${k.id}"></td>
   </tr>`).join('');
-  document.getElementById('modal-body').innerHTML=rows;
   document.getElementById('modal-bg').classList.add('open');
 }
-
 function closeModal(){document.getElementById('modal-bg').classList.remove('open');}
-
-function guardarActuals(){
+function guardar(){
   const mes=document.getElementById('inp-mes').value;
   const ano=document.getElementById('inp-ano').value;
-  const d=loadActuals();
-  let count=0;
-  KPIS.forEach(k=>{
-    const inp=document.getElementById('real-'+k.id);
-    if(inp&&inp.value!==''){
-      d[`${k.id}|${mes}|${ano}`]=parseFloat(inp.value);
-      count++;
-    }
-  });
-  saveActuals(d);
-  closeModal();
-  document.getElementById('mes-label').textContent=`${mes} ${ano} · ${count} KPIs actualizados`;
-  document.getElementById('sf-mes').textContent=`Último: ${mes} ${ano}`;
-  renderHome();
-  alert(`✅ ${count} actuals guardados para ${mes} ${ano}.\n\nLos semáforos se actualizaron automáticamente.`);
+  const d=loadA();let cnt=0;
+  KPIS.forEach(k=>{const inp=document.getElementById('ri-'+k.id);if(inp&&inp.value!==''){d[`${k.id}|${mes}|${ano}`]=parseFloat(inp.value);cnt++;}});
+  saveA(d);closeModal();
+  document.getElementById('sf-st').textContent=`Último: ${mes} ${ano}`;
+  render('home');
+  alert(`✅ ${cnt} actuals guardados para ${mes} ${ano}.`);
 }
 
-// ── RENDER PAGE ───────────────────────────────────────────────────────────────
-function renderPage(id){
+function render(id){
   if(id==='home')renderHome();
   else if(id==='gerencias')renderGerencias();
   else if(id==='semaforo')renderSemaforo();
-  else if(id==='tendencias')renderTendencias();
   else if(id==='pilares')renderPilares();
   else if(id==='equipo')renderEquipo();
-  else if(id==='objetivos')renderObjetivos();
+  else if(id==='tendencias')renderTendencias();
 }
 
-// ── INIT ──────────────────────────────────────────────────────────────────────
-renderHome();
-renderEquipo();
+renderHome();renderEquipo();
 </script>
 </body>
 </html>
